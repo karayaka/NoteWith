@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="EntitiyModels\" />
+    <None Remove="DTOModels\" />
+    <None Remove="EntitiyModels\BaseModels\" />
+    <None Remove="DTOModels\BaseModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EntitiyModels\" />
+    <Folder Include="DTOModels\" />
+    <Folder Include="EntitiyModels\BaseModels\" />
+    <Folder Include="DTOModels\BaseModel\" />
+  </ItemGroup>
+</Project>
