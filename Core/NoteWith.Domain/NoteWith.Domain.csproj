@@ -11,11 +11,29 @@
     <None Remove="DTOModels\" />
     <None Remove="EntitiyModels\BaseModels\" />
     <None Remove="DTOModels\BaseModel\" />
+    <None Remove="EntitiyModels\UserModels\" />
+    <None Remove="EntitiyModels\GroupModels\" />
+    <None Remove="EntitiyModels\NoteModels\" />
+    <None Remove="Enums\" />
+    <None Remove="EntitiyModels\WorkLists\" />
+    <None Remove="EntitiyModels\EventModels\" />
+    <None Remove="EntitiyModels\NoticeModels\" />
+    <None Remove="EntitiyModels\WorkFiles\" />
+    <None Remove="EntitiyModels\MessageModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntitiyModels\" />
     <Folder Include="DTOModels\" />
     <Folder Include="EntitiyModels\BaseModels\" />
     <Folder Include="DTOModels\BaseModel\" />
+    <Folder Include="EntitiyModels\UserModels\" />
+    <Folder Include="EntitiyModels\GroupModels\" />
+    <Folder Include="EntitiyModels\NoteModels\" />
+    <Folder Include="Enums\" />
+    <Folder Include="EntitiyModels\WorkLists\" />
+    <Folder Include="EntitiyModels\EventModels\" />
+    <Folder Include="EntitiyModels\NoticeModels\" />
+    <Folder Include="EntitiyModels\WorkFiles\" />
+    <Folder Include="EntitiyModels\MessageModels\" />
   </ItemGroup>
 </Project>

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\NoteWith.Application\NoteWith.Application.csproj" />
+    <ProjectReference Include="..\NoteWith.Persistence\NoteWith.Persistence.csproj" />
+  </ItemGroup>
 </Project>

@@ -6,4 +6,28 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="NoteDataContexts\" />
+    <None Remove="Microsoft.EntityFrameworkCore.Abstractions" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Pomelo.EntityFrameworkCore.MySql" />
+    <None Remove="PersistenceRegistirations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NoteDataContexts\" />
+    <Folder Include="PersistenceRegistirations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.13" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.13" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\NoteWith.Domain\NoteWith.Domain.csproj" />
+  </ItemGroup>
 </Project>

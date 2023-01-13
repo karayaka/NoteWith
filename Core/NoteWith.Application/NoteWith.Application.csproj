@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NoteWith.Domain\NoteWith.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Repositorys\" />
+    <None Remove="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositorys\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>
