@@ -21,7 +21,15 @@ namespace NoteWith.Infrastructure.Services
 
         public string DigitTokenGenerator(int DigitCount = 6)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tiks = DateTime.Now.Ticks.ToString();
+                return tiks.Substring(tiks.Length - DigitCount);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string JWTTokenGenerate(SessionModel user, DateTime expiredDate)

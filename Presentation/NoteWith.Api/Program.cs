@@ -1,4 +1,5 @@
-﻿using NoteWith.Persistence.PersistenceRegistirations;
+﻿using NoteWith.Infrastructure.InfrastructureRegistirations;
+using NoteWith.Persistence.PersistenceRegistirations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ builder.Services.AddSwaggerGen();
 //add datacontext
 var cnnc = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddNoteDbContext(cnnc);
+//JWT Configirationları eklendi
+var secretKey = builder.Configuration["AppSettings:Token"];
+builder.Services.AddJWTAuthentication(secretKey);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

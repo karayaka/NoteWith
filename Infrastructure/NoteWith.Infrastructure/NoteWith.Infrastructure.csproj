@@ -18,12 +18,14 @@
     <None Remove="InfrastructureRegistirations\" />
     <None Remove="Microsoft.AspNetCore.Http" />
     <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Injectors\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositorys\" />
     <Folder Include="Services\" />
     <Folder Include="MapperProfiles\" />
     <Folder Include="InfrastructureRegistirations\" />
+    <Folder Include="Injectors\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />

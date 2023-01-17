@@ -3,6 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using NoteWith.Application.Repositorys;
+using NoteWith.Domain.DTOModels.SecurityModels;
+using NoteWith.Infrastructure.Injectors;
 using NoteWith.Persistence.NoteDataContexts;
 
 namespace NoteWith.Infrastructure.Repositorys
@@ -11,7 +13,7 @@ namespace NoteWith.Infrastructure.Repositorys
     {
         private readonly NoteDataContext context;
 
-        private readonly Guid userID;
+        private readonly SessionModel user;
         //her özel repoya eklecek!!
         private readonly IMapper mapper;
 
@@ -19,12 +21,13 @@ namespace NoteWith.Infrastructure.Repositorys
 		{
             context = _context;
             mapper = _mapper;
+            user = Injector.SessionUser(_httpContextAccessor);
         }
         //base repostory
 		private IRepository _Repository;
         public IRepository Repository
 		{
-            get => _Repository ?? (_Repository = new Repository(context, userID));
+            get => _Repository ?? (_Repository = new Repository(context, user));
         }
     }
 }
