@@ -5,6 +5,7 @@ namespace NoteWith.Domain.DTOModels.BaseModel
 	{
 		public BaseDTO()
 		{
+			ID = Guid.Empty;
 		}
 		public Guid ID { get; set; }
 	}

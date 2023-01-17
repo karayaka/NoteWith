@@ -10,4 +10,24 @@
     <ProjectReference Include="..\..\Core\NoteWith.Application\NoteWith.Application.csproj" />
     <ProjectReference Include="..\NoteWith.Persistence\NoteWith.Persistence.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Repositorys\" />
+    <None Remove="Services\" />
+    <None Remove="MapperProfiles\" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="InfrastructureRegistirations\" />
+    <None Remove="Microsoft.AspNetCore.Http" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositorys\" />
+    <Folder Include="Services\" />
+    <Folder Include="MapperProfiles\" />
+    <Folder Include="InfrastructureRegistirations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
+  </ItemGroup>
 </Project>

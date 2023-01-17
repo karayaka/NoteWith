@@ -20,6 +20,8 @@
     <None Remove="EntitiyModels\NoticeModels\" />
     <None Remove="EntitiyModels\WorkFiles\" />
     <None Remove="EntitiyModels\MessageModels\" />
+    <None Remove="DTOModels\SecurityModels\" />
+    <None Remove="DTOModels\CustomExceptionModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntitiyModels\" />
@@ -35,5 +37,7 @@
     <Folder Include="EntitiyModels\NoticeModels\" />
     <Folder Include="EntitiyModels\WorkFiles\" />
     <Folder Include="EntitiyModels\MessageModels\" />
+    <Folder Include="DTOModels\SecurityModels\" />
+    <Folder Include="DTOModels\CustomExceptionModels\" />
   </ItemGroup>
 </Project>

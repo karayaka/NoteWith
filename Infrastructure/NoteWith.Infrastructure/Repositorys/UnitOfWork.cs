@@ -1,0 +1,31 @@
+﻿using System;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using NoteWith.Application.Repositorys;
+using NoteWith.Persistence.NoteDataContexts;
+
+namespace NoteWith.Infrastructure.Repositorys
+{
+	public class UnitOfWork: IUnitOfWork
+    {
+        private readonly NoteDataContext context;
+
+        private readonly Guid userID;
+        //her özel repoya eklecek!!
+        private readonly IMapper mapper;
+
+        public UnitOfWork(NoteDataContext _context, IHttpContextAccessor _httpContextAccessor, IMapper _mapper)
+		{
+            context = _context;
+            mapper = _mapper;
+        }
+        //base repostory
+		private IRepository _Repository;
+        public IRepository Repository
+		{
+            get => _Repository ?? (_Repository = new Repository(context, userID));
+        }
+    }
+}
+

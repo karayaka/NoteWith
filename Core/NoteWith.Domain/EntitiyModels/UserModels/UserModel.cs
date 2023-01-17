@@ -4,7 +4,7 @@ using NoteWith.Domain.EntitiyModels.GroupModels;
 
 namespace NoteWith.Domain.EntitiyModels.UserModels
 {
-	public class UserModel:BaseEntity
+	public class UserModel : BaseEntity
 	{
 		public UserModel()
 		{
@@ -14,6 +14,8 @@ namespace NoteWith.Domain.EntitiyModels.UserModels
 		public string Surname { get; set; }
 
 		public string Email { get; set; }
+
+		public string Password {get;set;}
 
 		public string? EmailConfirmeToken { get; set; }
 
