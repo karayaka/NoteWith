@@ -15,6 +15,13 @@ builder.Services.AddNoteDbContext(cnnc);
 //JWT Configirationları eklendi
 var secretKey = builder.Configuration["AppSettings:Token"];
 builder.Services.AddJWTAuthentication(secretKey);
+//mapper serivi eklendi
+builder.Services.AddMapper();
+//servisler eklendi
+builder.Services.AddServices();
+//repositoryler eklendi
+builder.Services.AddRepositorys();
+
 
 var app = builder.Build();
 

@@ -29,6 +29,18 @@ namespace NoteWith.Infrastructure.Repositorys
 		{
             get => _Repository ?? (_Repository = new Repository(context, user));
         }
+
+        public Task<int> SaveChange()
+        {
+            try
+            {
+                return context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

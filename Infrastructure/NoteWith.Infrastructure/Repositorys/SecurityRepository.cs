@@ -20,6 +20,8 @@ namespace NoteWith.Infrastructure.Repositorys
 		{
             context = _context;
             emailService = _emailService;
+            tokenService = _tokenService;
+
             mapper = _mapper;
 		}
         //tekrer migrtion yapılmalı ve base controlleer ve repoler yazılmalı!!
@@ -95,8 +97,11 @@ namespace NoteWith.Infrastructure.Repositorys
                 var user = mapper.Map<UserModel>(model);
                 if (model.IsGoogleLogin)
                     user.IsEmailConfirmed = true;
+                
                 await context.AddAsync(user);
                 await context.SaveChangesAsync();
+                if(!model.IsGoogleLogin)
+                    await SendConfirmeEmail(user);//email doğrulama şartmı olmalı
                 return SetLoginResult(user);
             }
             catch (Exception ex)

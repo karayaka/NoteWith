@@ -18,7 +18,8 @@ namespace NoteWith.Infrastructure.Services
         {
             try
             {
-                //email teplate burda oluşturulacak
+                var htmlBody = "<h3>Dogrulama Kodunuz: " + code + "</h3>";
+                await SendEmil(email, "Email Doğrulama Kodu", htmlBody);
             }
             catch (Exception ex)
             {
@@ -43,9 +44,11 @@ namespace NoteWith.Infrastructure.Services
 
                 SmtpClient smtp = new();
                 smtp.Credentials = new NetworkCredential(config["Mail:UserName"], config["Mail:Password"]);
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
+                smtp.Port = 25;
+                smtp.EnableSsl = false;
                 smtp.Host = config["Mail:Host"];
+                
+                await smtp.SendMailAsync(mail);
 
             }
             catch (Exception ex)

@@ -21,8 +21,8 @@ namespace NoteWith.Infrastructure.InfrastructureRegistirations
 
 		public static void AddServices(this IServiceCollection services)
 		{
-			services.AddScoped<IEmailService, EmailService>();
-			services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+			services.AddTransient<IEmailService, EmailService>();
+			services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
 		}
 		public static void AddRepositorys(this IServiceCollection services)
 		{
