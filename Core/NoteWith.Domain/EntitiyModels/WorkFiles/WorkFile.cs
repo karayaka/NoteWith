@@ -8,7 +8,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkFiles
 		public WorkFile()
 		{
 		}
-		public int WorkFilesFolderID { get; set; }
+		public Guid WorkFilesFolderID { get; set; }
         public WorkFilesFolder WorkFilesFolder { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }

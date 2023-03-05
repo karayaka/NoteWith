@@ -23,7 +23,8 @@ namespace NoteWith.Infrastructure.InfrastructureRegistirations
 		{
 			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
-		}
+            services.AddTransient<INotificationServices, NotificationServices>();
+        }
 		public static void AddRepositorys(this IServiceCollection services)
 		{
 			services.AddTransient<ISecurityRepository, SecurityRepository>();

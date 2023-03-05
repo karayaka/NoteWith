@@ -10,14 +10,14 @@ namespace NoteWith.Domain.EntitiyModels.GroupModels
 		{
 		}
 		public WorkGroup WorkGroup { get; set; }
-        public int WorkGroupID { get; set; }
+        public Guid WorkGroupID { get; set; }
 
         public UserModel User { get; set; }
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
 
 		public bool IsManager { get; set; }//her grup için bir yönetici olablir
 
-		public string IsNute { get; set; }
+		public bool IsNute { get; set; }
 	}
 }
 

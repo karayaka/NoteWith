@@ -15,6 +15,8 @@ namespace NoteWith.Domain.DTOModels.SecurityModels
 
         public string Email { get; set; }
 
+        public bool IsConfirmeEmail { get; set; }
+
         public string? ProfileImage { get; set; }
 
         public string? FireBaseConnectionID { get; set; }

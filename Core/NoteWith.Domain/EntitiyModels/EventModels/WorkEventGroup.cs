@@ -10,10 +10,10 @@ namespace NoteWith.Domain.EntitiyModels.EventModels
 		{
 		}
 
-		public int EventID { get; set; }
+		public Guid EventID { get; set; }
         public WorkEvent Event { get; set; }
 
-        public int WorkGroupID { get; set; }
+        public Guid WorkGroupID { get; set; }
         public WorkGroup WorkGroup { get; set; }
     }
 }

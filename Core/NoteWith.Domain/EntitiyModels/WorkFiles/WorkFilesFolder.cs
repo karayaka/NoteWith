@@ -12,7 +12,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkFiles
 		}
 		public string Title { get; set; }
 
-		public int WorkGroupID { get; set; }
+		public Guid WorkGroupID { get; set; }
 
         public WorkGroup WorkGroup { get; set; }
 

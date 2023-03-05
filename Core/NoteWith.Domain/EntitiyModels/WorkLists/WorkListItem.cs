@@ -9,7 +9,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkLists
 		public WorkListItem()
 		{
 		}
-		public int WorkListID { get; set; }
+		public Guid WorkListID { get; set; }
         public WorkList WorkList { get; set; }
 
 		public string Title { get; set; }
@@ -20,7 +20,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkLists
 
 		public string? Color { get; set; }
 
-		public int ComplaterUserID { get; set; }
+		public Guid? ComplaterUserID { get; set; }
         public UserModel ComplaterUser { get; set; }
 		//enetlerden devam edileck gruba eklenen her evet hanerdar edilecek ve bana bildir tabosunda tarih veya değişiklikte haberdar edilecek
     }

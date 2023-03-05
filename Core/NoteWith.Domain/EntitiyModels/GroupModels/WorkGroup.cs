@@ -22,7 +22,9 @@ namespace NoteWith.Domain.EntitiyModels.GroupModels
 
 		public ICollection<WorkGroupUsers> WorkGroupUsers { get; set; }
 
-		public ICollection<WorkEventGroup> EventGroups { get; set; }
+        public ICollection<WorkGroupAccesKey> WorkGroupAccesKeys { get; set; }        
+
+        public ICollection<WorkEventGroup> EventGroups { get; set; }
 
 		public ICollection<WorkGroupMessage> Messages { get; set; }
 

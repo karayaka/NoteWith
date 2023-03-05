@@ -12,6 +12,7 @@ namespace NoteWith.Domain.DTOModels.SecurityModels
         public string Surname { get; set; }
         public string Email { get; set; }
         public string ProfilImage { get; set; }
+		public bool IsConfirmeEmail { get; set; }
 		public string Token { get; set; }
 	}
 }

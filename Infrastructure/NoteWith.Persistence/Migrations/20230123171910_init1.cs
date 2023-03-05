@@ -68,6 +68,8 @@ namespace NoteWith.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     EmailConfirmeToken = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IsEmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -164,10 +166,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    NoteID = table.Column<int>(type: "int", nullable: false),
-                    NoteID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoteID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Desc = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -181,14 +181,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_NoteExcludedUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NoteExcludedUsers_Notes_NoteID1",
-                        column: x => x.NoteID1,
+                        name: "FK_NoteExcludedUsers_Notes_NoteID",
+                        column: x => x.NoteID,
                         principalTable: "Notes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NoteExcludedUsers_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_NoteExcludedUsers_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -200,10 +200,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    NoteID = table.Column<int>(type: "int", nullable: false),
-                    NoteID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    NoteID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -215,14 +213,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_NoteNotifiedMes", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NoteNotifiedMes_Notes_NoteID1",
-                        column: x => x.NoteID1,
+                        name: "FK_NoteNotifiedMes_Notes_NoteID",
+                        column: x => x.NoteID,
                         principalTable: "Notes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NoteNotifiedMes_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_NoteNotifiedMes_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -234,10 +232,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    NoticeID = table.Column<int>(type: "int", nullable: false),
-                    NoticeID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoticeID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -249,14 +245,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_NoticeSeenUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NoticeSeenUsers_Notices_NoticeID1",
-                        column: x => x.NoticeID1,
+                        name: "FK_NoticeSeenUsers_Notices_NoticeID",
+                        column: x => x.NoticeID,
                         principalTable: "Notices",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NoticeSeenUsers_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_NoticeSeenUsers_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -268,10 +264,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    SenderID = table.Column<int>(type: "int", nullable: false),
-                    SenderID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ReceiverID = table.Column<int>(type: "int", nullable: false),
-                    ReceiverID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    SenderID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ReceiverID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Message = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -286,14 +280,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_PersonelMessageModels", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_PersonelMessageModels_Users_ReceiverID1",
-                        column: x => x.ReceiverID1,
+                        name: "FK_PersonelMessageModels_Users_ReceiverID",
+                        column: x => x.ReceiverID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonelMessageModels_Users_SenderID1",
-                        column: x => x.SenderID1,
+                        name: "FK_PersonelMessageModels_Users_SenderID",
+                        column: x => x.SenderID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -305,10 +299,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    EventID = table.Column<int>(type: "int", nullable: false),
-                    EventID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EventID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Desc = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -322,14 +314,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkEventExcludedUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkEventExcludedUsers_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_WorkEventExcludedUsers_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkEventExcludedUsers_WorkEvents_EventID1",
-                        column: x => x.EventID1,
+                        name: "FK_WorkEventExcludedUsers_WorkEvents_EventID",
+                        column: x => x.EventID,
                         principalTable: "WorkEvents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -341,10 +333,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    EventID = table.Column<int>(type: "int", nullable: false),
-                    EventID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EventID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     NotificatonID = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -358,14 +348,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkEventNotifiedMes", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkEventNotifiedMes_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_WorkEventNotifiedMes_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkEventNotifiedMes_WorkEvents_EventID1",
-                        column: x => x.EventID1,
+                        name: "FK_WorkEventNotifiedMes_WorkEvents_EventID",
+                        column: x => x.EventID,
                         principalTable: "WorkEvents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -377,10 +367,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    NoteID = table.Column<int>(type: "int", nullable: false),
-                    NoteID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoteID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -392,14 +380,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_NoteGroups", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NoteGroups_Notes_NoteID1",
-                        column: x => x.NoteID1,
+                        name: "FK_NoteGroups_Notes_NoteID",
+                        column: x => x.NoteID,
                         principalTable: "Notes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NoteGroups_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_NoteGroups_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -411,10 +399,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    EventID = table.Column<int>(type: "int", nullable: false),
-                    EventID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EventID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -426,14 +412,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkEventGroups", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkEventGroups_WorkEvents_EventID1",
-                        column: x => x.EventID1,
+                        name: "FK_WorkEventGroups_WorkEvents_EventID",
+                        column: x => x.EventID,
                         principalTable: "WorkEvents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkEventGroups_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkEventGroups_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -447,8 +433,7 @@ namespace NoteWith.Persistence.Migrations
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Title = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -460,8 +445,36 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkFilesFolders", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkFilesFolders_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkFilesFolders_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
+                        principalTable: "WorkGroups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "WorkGroupAccesKeys",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Key = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Expaired = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ObjectStatus = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkGroupAccesKeys", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_WorkGroupAccesKeys_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -475,8 +488,7 @@ namespace NoteWith.Persistence.Migrations
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -488,8 +500,8 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkGroupAlbums", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkGroupAlbums_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkGroupAlbums_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -501,10 +513,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    SenderID = table.Column<int>(type: "int", nullable: false),
-                    SenderID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    SenderID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Message = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<string>(type: "longtext", nullable: false)
@@ -520,14 +530,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkGroupMessages", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkGroupMessages_Users_SenderID1",
-                        column: x => x.SenderID1,
+                        name: "FK_WorkGroupMessages_Users_SenderID",
+                        column: x => x.SenderID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkGroupMessages_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkGroupMessages_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -539,10 +549,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    NoticeID = table.Column<int>(type: "int", nullable: false),
-                    NoticeID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NoticeID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -554,14 +562,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkGroupNotices", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkGroupNotices_Notices_NoticeID1",
-                        column: x => x.NoticeID1,
+                        name: "FK_WorkGroupNotices_Notices_NoticeID",
+                        column: x => x.NoticeID,
                         principalTable: "Notices",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkGroupNotices_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkGroupNotices_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -573,13 +581,10 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     IsManager = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IsNute = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsNute = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -591,14 +596,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkGroupUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkGroupUsers_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_WorkGroupUsers_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkGroupUsers_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_WorkGroupUsers_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -610,10 +615,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkListID = table.Column<int>(type: "int", nullable: false),
-                    WorkListID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkGroupID = table.Column<int>(type: "int", nullable: false),
-                    WorkGroupID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkListID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -625,14 +628,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ListWorkGroups", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ListWorkGroups_WorkGroups_WorkGroupID1",
-                        column: x => x.WorkGroupID1,
+                        name: "FK_ListWorkGroups_WorkGroups_WorkGroupID",
+                        column: x => x.WorkGroupID,
                         principalTable: "WorkGroups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ListWorkGroups_WorkLists_WorkListID1",
-                        column: x => x.WorkListID1,
+                        name: "FK_ListWorkGroups_WorkLists_WorkListID",
+                        column: x => x.WorkListID,
                         principalTable: "WorkLists",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -644,10 +647,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkListID = table.Column<int>(type: "int", nullable: false),
-                    WorkListID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkListID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Desc = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -661,14 +662,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkListExcludedUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkListExcludedUsers_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_WorkListExcludedUsers_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkListExcludedUsers_WorkLists_WorkListID1",
-                        column: x => x.WorkListID1,
+                        name: "FK_WorkListExcludedUsers_WorkLists_WorkListID",
+                        column: x => x.WorkListID,
                         principalTable: "WorkLists",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -680,8 +681,7 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkListID = table.Column<int>(type: "int", nullable: false),
-                    WorkListID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkListID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Title = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Content = table.Column<string>(type: "longtext", nullable: false)
@@ -689,8 +689,7 @@ namespace NoteWith.Persistence.Migrations
                     IsCoplated = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Color = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ComplaterUserID = table.Column<int>(type: "int", nullable: false),
-                    ComplaterUserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ComplaterUserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -702,14 +701,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkListItems", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkListItems_Users_ComplaterUserID1",
-                        column: x => x.ComplaterUserID1,
+                        name: "FK_WorkListItems_Users_ComplaterUserID",
+                        column: x => x.ComplaterUserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkListItems_WorkLists_WorkListID1",
-                        column: x => x.WorkListID1,
+                        name: "FK_WorkListItems_WorkLists_WorkListID",
+                        column: x => x.WorkListID,
                         principalTable: "WorkLists",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -721,10 +720,8 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkListID = table.Column<int>(type: "int", nullable: false),
-                    WorkListID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkListID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreadedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -736,14 +733,14 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkListNotifiedMes", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkListNotifiedMes_Users_UserID1",
-                        column: x => x.UserID1,
+                        name: "FK_WorkListNotifiedMes_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkListNotifiedMes_WorkLists_WorkListID1",
-                        column: x => x.WorkListID1,
+                        name: "FK_WorkListNotifiedMes_WorkLists_WorkListID",
+                        column: x => x.WorkListID,
                         principalTable: "WorkLists",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -755,8 +752,7 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkFilesFolderID = table.Column<int>(type: "int", nullable: false),
-                    WorkFilesFolderID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkFilesFolderID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Url = table.Column<string>(type: "longtext", nullable: false)
@@ -772,8 +768,8 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkFiles", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkFiles_WorkFilesFolders_WorkFilesFolderID1",
-                        column: x => x.WorkFilesFolderID1,
+                        name: "FK_WorkFiles_WorkFilesFolders_WorkFilesFolderID",
+                        column: x => x.WorkFilesFolderID,
                         principalTable: "WorkFilesFolders",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -785,8 +781,7 @@ namespace NoteWith.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    AlbumID = table.Column<int>(type: "int", nullable: false),
-                    AlbumID1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    AlbumID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UrlSmallImage = table.Column<string>(type: "longtext", nullable: false)
@@ -806,8 +801,8 @@ namespace NoteWith.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_WorkPhotos", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_WorkPhotos_WorkGroupAlbums_AlbumID1",
-                        column: x => x.AlbumID1,
+                        name: "FK_WorkPhotos_WorkGroupAlbums_AlbumID",
+                        column: x => x.AlbumID,
                         principalTable: "WorkGroupAlbums",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -815,174 +810,179 @@ namespace NoteWith.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ListWorkGroups_WorkGroupID1",
+                name: "IX_ListWorkGroups_WorkGroupID",
                 table: "ListWorkGroups",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ListWorkGroups_WorkListID1",
+                name: "IX_ListWorkGroups_WorkListID",
                 table: "ListWorkGroups",
-                column: "WorkListID1");
+                column: "WorkListID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteExcludedUsers_NoteID1",
+                name: "IX_NoteExcludedUsers_NoteID",
                 table: "NoteExcludedUsers",
-                column: "NoteID1");
+                column: "NoteID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteExcludedUsers_UserID1",
+                name: "IX_NoteExcludedUsers_UserID",
                 table: "NoteExcludedUsers",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteGroups_NoteID1",
+                name: "IX_NoteGroups_NoteID",
                 table: "NoteGroups",
-                column: "NoteID1");
+                column: "NoteID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteGroups_WorkGroupID1",
+                name: "IX_NoteGroups_WorkGroupID",
                 table: "NoteGroups",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteNotifiedMes_NoteID1",
+                name: "IX_NoteNotifiedMes_NoteID",
                 table: "NoteNotifiedMes",
-                column: "NoteID1");
+                column: "NoteID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteNotifiedMes_UserID1",
+                name: "IX_NoteNotifiedMes_UserID",
                 table: "NoteNotifiedMes",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoticeSeenUsers_NoticeID1",
+                name: "IX_NoticeSeenUsers_NoticeID",
                 table: "NoticeSeenUsers",
-                column: "NoticeID1");
+                column: "NoticeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoticeSeenUsers_UserID1",
+                name: "IX_NoticeSeenUsers_UserID",
                 table: "NoticeSeenUsers",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonelMessageModels_ReceiverID1",
+                name: "IX_PersonelMessageModels_ReceiverID",
                 table: "PersonelMessageModels",
-                column: "ReceiverID1");
+                column: "ReceiverID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonelMessageModels_SenderID1",
+                name: "IX_PersonelMessageModels_SenderID",
                 table: "PersonelMessageModels",
-                column: "SenderID1");
+                column: "SenderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventExcludedUsers_EventID1",
+                name: "IX_WorkEventExcludedUsers_EventID",
                 table: "WorkEventExcludedUsers",
-                column: "EventID1");
+                column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventExcludedUsers_UserID1",
+                name: "IX_WorkEventExcludedUsers_UserID",
                 table: "WorkEventExcludedUsers",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventGroups_EventID1",
+                name: "IX_WorkEventGroups_EventID",
                 table: "WorkEventGroups",
-                column: "EventID1");
+                column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventGroups_WorkGroupID1",
+                name: "IX_WorkEventGroups_WorkGroupID",
                 table: "WorkEventGroups",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventNotifiedMes_EventID1",
+                name: "IX_WorkEventNotifiedMes_EventID",
                 table: "WorkEventNotifiedMes",
-                column: "EventID1");
+                column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkEventNotifiedMes_UserID1",
+                name: "IX_WorkEventNotifiedMes_UserID",
                 table: "WorkEventNotifiedMes",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkFiles_WorkFilesFolderID1",
+                name: "IX_WorkFiles_WorkFilesFolderID",
                 table: "WorkFiles",
-                column: "WorkFilesFolderID1");
+                column: "WorkFilesFolderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkFilesFolders_WorkGroupID1",
+                name: "IX_WorkFilesFolders_WorkGroupID",
                 table: "WorkFilesFolders",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupAlbums_WorkGroupID1",
+                name: "IX_WorkGroupAccesKeys_WorkGroupID",
+                table: "WorkGroupAccesKeys",
+                column: "WorkGroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkGroupAlbums_WorkGroupID",
                 table: "WorkGroupAlbums",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupMessages_SenderID1",
+                name: "IX_WorkGroupMessages_SenderID",
                 table: "WorkGroupMessages",
-                column: "SenderID1");
+                column: "SenderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupMessages_WorkGroupID1",
+                name: "IX_WorkGroupMessages_WorkGroupID",
                 table: "WorkGroupMessages",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupNotices_NoticeID1",
+                name: "IX_WorkGroupNotices_NoticeID",
                 table: "WorkGroupNotices",
-                column: "NoticeID1");
+                column: "NoticeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupNotices_WorkGroupID1",
+                name: "IX_WorkGroupNotices_WorkGroupID",
                 table: "WorkGroupNotices",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupUsers_UserID1",
+                name: "IX_WorkGroupUsers_UserID",
                 table: "WorkGroupUsers",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkGroupUsers_WorkGroupID1",
+                name: "IX_WorkGroupUsers_WorkGroupID",
                 table: "WorkGroupUsers",
-                column: "WorkGroupID1");
+                column: "WorkGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListExcludedUsers_UserID1",
+                name: "IX_WorkListExcludedUsers_UserID",
                 table: "WorkListExcludedUsers",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListExcludedUsers_WorkListID1",
+                name: "IX_WorkListExcludedUsers_WorkListID",
                 table: "WorkListExcludedUsers",
-                column: "WorkListID1");
+                column: "WorkListID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListItems_ComplaterUserID1",
+                name: "IX_WorkListItems_ComplaterUserID",
                 table: "WorkListItems",
-                column: "ComplaterUserID1");
+                column: "ComplaterUserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListItems_WorkListID1",
+                name: "IX_WorkListItems_WorkListID",
                 table: "WorkListItems",
-                column: "WorkListID1");
+                column: "WorkListID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListNotifiedMes_UserID1",
+                name: "IX_WorkListNotifiedMes_UserID",
                 table: "WorkListNotifiedMes",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkListNotifiedMes_WorkListID1",
+                name: "IX_WorkListNotifiedMes_WorkListID",
                 table: "WorkListNotifiedMes",
-                column: "WorkListID1");
+                column: "WorkListID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkPhotos_AlbumID1",
+                name: "IX_WorkPhotos_AlbumID",
                 table: "WorkPhotos",
-                column: "AlbumID1");
+                column: "AlbumID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1016,6 +1016,9 @@ namespace NoteWith.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "WorkFiles");
+
+            migrationBuilder.DropTable(
+                name: "WorkGroupAccesKeys");
 
             migrationBuilder.DropTable(
                 name: "WorkGroupMessages");

@@ -10,10 +10,10 @@ namespace NoteWith.Domain.EntitiyModels.NoteModels
 		{
 		}
 
-		public int NoteID { get; set; }
+		public Guid NoteID { get; set; }
         public Note Note { get; set; }
 
-		public int WorkGroupID { get; set; }
+		public Guid WorkGroupID { get; set; }
         public WorkGroup WorkGroup { get; set; }
     }
 }

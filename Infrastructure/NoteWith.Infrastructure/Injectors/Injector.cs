@@ -41,6 +41,9 @@ namespace NoteWith.Infrastructure.Injectors
             var fireCon= httpContextAccessor.HttpContext.User.FindFirst("fireBaseConnectionID");
             if (fireCon != null)
                 user.FireBaseConnectionID = fireCon.Value;
+            var mailConfirmet = httpContextAccessor.HttpContext.User.FindFirst("IsMailConfirmet");
+            if (mailConfirmet != null)
+                user.IsConfirmeEmail = Convert.ToBoolean(mailConfirmet);
 
             return user;
         }

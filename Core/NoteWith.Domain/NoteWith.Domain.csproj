@@ -22,6 +22,12 @@
     <None Remove="EntitiyModels\MessageModels\" />
     <None Remove="DTOModels\SecurityModels\" />
     <None Remove="DTOModels\CustomExceptionModels\" />
+    <None Remove="DTOModels\GroupModels\" />
+    <None Remove="DTOModels\NoteModels\" />
+    <None Remove="EntitiyModels\Labels\" />
+    <None Remove="DTOModels\WorklistModels\" />
+    <None Remove="EntitiyModels\NotifiedModels\" />
+    <None Remove="DTOModels\NotifiedModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntitiyModels\" />
@@ -39,5 +45,11 @@
     <Folder Include="EntitiyModels\MessageModels\" />
     <Folder Include="DTOModels\SecurityModels\" />
     <Folder Include="DTOModels\CustomExceptionModels\" />
+    <Folder Include="DTOModels\GroupModels\" />
+    <Folder Include="DTOModels\NoteModels\" />
+    <Folder Include="EntitiyModels\Labels\" />
+    <Folder Include="DTOModels\WorklistModels\" />
+    <Folder Include="EntitiyModels\NotifiedModels\" />
+    <Folder Include="DTOModels\NotifiedModels\" />
   </ItemGroup>
 </Project>

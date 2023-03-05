@@ -9,11 +9,11 @@ namespace NoteWith.Domain.EntitiyModels.NoteModels
 		public NoteNotifiedMe()
 		{
 		}
-        public int NoteID { get; set; }
+        public Guid NoteID { get; set; }
         public Note Note { get; set; }
 
         public UserModel User { get; set; }
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
     }
 }
 

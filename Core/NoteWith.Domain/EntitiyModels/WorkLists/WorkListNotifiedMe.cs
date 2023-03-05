@@ -10,10 +10,10 @@ namespace NoteWith.Domain.EntitiyModels.WorkLists
 		{
 		}
 
-		public int WorkListID { get; set; }
+		public Guid WorkListID { get; set; }
         public WorkList WorkList { get; set; }
 
-		public int UserID { get; set; }
+		public Guid UserID { get; set; }
         public UserModel User { get; set; }
     }
 }

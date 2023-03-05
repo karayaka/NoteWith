@@ -9,10 +9,10 @@ namespace NoteWith.Domain.EntitiyModels.EventModels
 		public WorkEventNotifiedMe()
 		{
 		}
-		public int EventID { get; set; }
+		public Guid EventID { get; set; }
         public WorkEvent Event { get; set; }
 
-		public int UserID { get; set; }
+		public Guid UserID { get; set; }
         public UserModel User { get; set; }
 
 		public string NotificatonID { get; set; }

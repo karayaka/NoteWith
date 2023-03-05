@@ -10,10 +10,10 @@ namespace NoteWith.Domain.EntitiyModels.MessageModels
 		public WorkGroupMessage()
 		{
 		}
-		public int WorkGroupID { get; set; }
+		public Guid WorkGroupID { get; set; }
         public WorkGroup WorkGroup { get; set; }
 
-		public int SenderID { get; set; }
+		public Guid SenderID { get; set; }
         public UserModel Sender { get; set; }
 
 		public string Message { get; set; }

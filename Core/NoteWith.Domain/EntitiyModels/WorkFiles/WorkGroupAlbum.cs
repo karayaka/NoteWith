@@ -11,7 +11,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkFiles
 		}
 		public string Name { get; set; }
 
-		public int WorkGroupID { get; set; }
+		public Guid WorkGroupID { get; set; }
         public WorkGroup WorkGroup { get; set; }
 
 		public ICollection<WorkPhoto> WorkPhotos { get; set; }

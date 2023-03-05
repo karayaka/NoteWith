@@ -42,11 +42,12 @@ namespace NoteWith.Infrastructure.Services
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                    {
-                        new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                        new Claim(ClaimTypes.Name, user.Name),
-                        new Claim(ClaimTypes.Surname, user.Surname),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim("fireBaseConnectionID",user.FireBaseConnectionID??"")
+                       new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                       new Claim(ClaimTypes.Name, user.Name),
+                       new Claim(ClaimTypes.Surname, user.Surname),
+                       new Claim(ClaimTypes.Email, user.Email),
+                       new Claim("IsMailConfirmet", user.IsConfirmeEmail.ToString()),
+                       new Claim("fireBaseConnectionID", user.FireBaseConnectionID ?? "")
                    }),
                     Expires = expiredDate,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

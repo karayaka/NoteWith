@@ -73,10 +73,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<string>("Desc")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("EventID1")
+                    b.Property<Guid>("EventID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -91,17 +88,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EventID1");
+                    b.HasIndex("EventID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("WorkEventExcludedUsers");
                 });
@@ -118,10 +112,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("EventID1")
+                    b.Property<Guid>("EventID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -136,17 +127,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EventID1");
+                    b.HasIndex("EventID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkEventGroups");
                 });
@@ -163,10 +151,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("EventID1")
+                    b.Property<Guid>("EventID")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("NotificatonID")
@@ -185,17 +170,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EventID1");
+                    b.HasIndex("EventID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("WorkEventNotifiedMes");
                 });
@@ -240,7 +222,7 @@ namespace NoteWith.Persistence.Migrations
                     b.ToTable("WorkGroups");
                 });
 
-            modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupUsers", b =>
+            modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupAccesKey", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
@@ -252,10 +234,10 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsManager")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Expaired")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<string>("IsNute")
+                    b.Property<string>("Key")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -271,23 +253,57 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
-                        .HasColumnType("char(36)");
-
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("WorkGroupID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.ToTable("WorkGroupAccesKeys");
+                });
+
+            modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupUsers", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("CreadedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreadedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsManager")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsNute")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ObjectStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("WorkGroupID")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkGroupUsers");
                 });
@@ -314,16 +330,10 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<int>("ObjectStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReceiverID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ReceiverID1")
+                    b.Property<Guid>("ReceiverID")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("SenderID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SenderID1")
+                    b.Property<Guid>("SenderID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("Status")
@@ -337,9 +347,9 @@ namespace NoteWith.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ReceiverID1");
+                    b.HasIndex("ReceiverID");
 
-                    b.HasIndex("SenderID1");
+                    b.HasIndex("SenderID");
 
                     b.ToTable("PersonelMessageModels");
                 });
@@ -367,10 +377,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<int>("ObjectStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SenderID1")
+                    b.Property<Guid>("SenderID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("Status")
@@ -382,17 +389,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("SenderID1");
+                    b.HasIndex("SenderID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkGroupMessages");
                 });
@@ -452,10 +456,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<string>("Desc")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("NoteID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("NoteID1")
+                    b.Property<Guid>("NoteID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -470,17 +471,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NoteID1");
+                    b.HasIndex("NoteID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("NoteExcludedUsers");
                 });
@@ -497,10 +495,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NoteID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("NoteID1")
+                    b.Property<Guid>("NoteID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -515,17 +510,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NoteID1");
+                    b.HasIndex("NoteID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("NoteGroups");
                 });
@@ -542,10 +534,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NoteID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("NoteID1")
+                    b.Property<Guid>("NoteID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -560,17 +549,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NoteID1");
+                    b.HasIndex("NoteID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("NoteNotifiedMes");
                 });
@@ -623,10 +609,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NoticeID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("NoticeID1")
+                    b.Property<Guid>("NoticeID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -641,17 +624,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NoticeID1");
+                    b.HasIndex("NoticeID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("NoticeSeenUsers");
                 });
@@ -668,10 +648,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("CreadedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NoticeID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("NoticeID1")
+                    b.Property<Guid>("NoticeID")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ObjectStatus")
@@ -686,17 +663,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("NoticeID1");
+                    b.HasIndex("NoticeID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkGroupNotices");
                 });
@@ -790,15 +764,12 @@ namespace NoteWith.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("WorkFilesFolderID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkFilesFolderID1")
+                    b.Property<Guid>("WorkFilesFolderID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("WorkFilesFolderID1");
+                    b.HasIndex("WorkFilesFolderID");
 
                     b.ToTable("WorkFiles");
                 });
@@ -831,15 +802,12 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkFilesFolders");
                 });
@@ -872,15 +840,12 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
                     b.ToTable("WorkGroupAlbums");
                 });
@@ -891,10 +856,7 @@ namespace NoteWith.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("AlbumID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("AlbumID1")
+                    b.Property<Guid>("AlbumID")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid?>("CreadedBy")
@@ -933,7 +895,7 @@ namespace NoteWith.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AlbumID1");
+                    b.HasIndex("AlbumID");
 
                     b.ToTable("WorkPhotos");
                 });
@@ -962,23 +924,17 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkGroupID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkGroupID1")
+                    b.Property<Guid>("WorkGroupID")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("WorkListID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkListID1")
+                    b.Property<Guid>("WorkListID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("WorkGroupID1");
+                    b.HasIndex("WorkGroupID");
 
-                    b.HasIndex("WorkListID1");
+                    b.HasIndex("WorkListID");
 
                     b.ToTable("ListWorkGroups");
                 });
@@ -1049,23 +1005,17 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("WorkListID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkListID1")
+                    b.Property<Guid>("WorkListID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
-                    b.HasIndex("WorkListID1");
+                    b.HasIndex("WorkListID");
 
                     b.ToTable("WorkListExcludedUsers");
                 });
@@ -1079,10 +1029,7 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("ComplaterUserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ComplaterUserID1")
+                    b.Property<Guid>("ComplaterUserID")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Content")
@@ -1114,17 +1061,14 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("WorkListID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkListID1")
+                    b.Property<Guid>("WorkListID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ComplaterUserID1");
+                    b.HasIndex("ComplaterUserID");
 
-                    b.HasIndex("WorkListID1");
+                    b.HasIndex("WorkListID");
 
                     b.ToTable("WorkListItems");
                 });
@@ -1153,23 +1097,17 @@ namespace NoteWith.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserID1")
+                    b.Property<Guid>("UserID")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("WorkListID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WorkListID1")
+                    b.Property<Guid>("WorkListID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
-                    b.HasIndex("WorkListID1");
+                    b.HasIndex("WorkListID");
 
                     b.ToTable("WorkListNotifiedMes");
                 });
@@ -1178,13 +1116,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.EventModels.WorkEvent", "Event")
                         .WithMany("ExcludedUsers")
-                        .HasForeignKey("EventID1")
+                        .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1197,13 +1135,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.EventModels.WorkEvent", "Event")
                         .WithMany("Groups")
-                        .HasForeignKey("EventID1")
+                        .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("EventGroups")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1216,13 +1154,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.EventModels.WorkEvent", "Event")
                         .WithMany("NotifiedMes")
-                        .HasForeignKey("EventID1")
+                        .HasForeignKey("EventID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1231,17 +1169,28 @@ namespace NoteWith.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupAccesKey", b =>
+                {
+                    b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
+                        .WithMany("WorkGroupAccesKeys")
+                        .HasForeignKey("WorkGroupID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkGroup");
+                });
+
             modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupUsers", b =>
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany("WorkGroupUsers")
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("WorkGroupUsers")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1254,13 +1203,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "Receiver")
                         .WithMany()
-                        .HasForeignKey("ReceiverID1")
+                        .HasForeignKey("ReceiverID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderID1")
+                        .HasForeignKey("SenderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1273,13 +1222,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderID1")
+                        .HasForeignKey("SenderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("Messages")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1292,13 +1241,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.NoteModels.Note", "Note")
                         .WithMany("ExcludedUsers")
-                        .HasForeignKey("NoteID1")
+                        .HasForeignKey("NoteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1311,13 +1260,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.NoteModels.Note", "Note")
                         .WithMany("NoteGroups")
-                        .HasForeignKey("NoteID1")
+                        .HasForeignKey("NoteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("NoteGroups")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1330,13 +1279,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.NoteModels.Note", "Note")
                         .WithMany("Notifieds")
-                        .HasForeignKey("NoteID1")
+                        .HasForeignKey("NoteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1349,13 +1298,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.NoticeModels.Notice", "Notice")
                         .WithMany("SeenUsers")
-                        .HasForeignKey("NoticeID1")
+                        .HasForeignKey("NoticeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1368,13 +1317,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.NoticeModels.Notice", "Notice")
                         .WithMany("WorkGroups")
-                        .HasForeignKey("NoticeID1")
+                        .HasForeignKey("NoticeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("Notices")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1387,7 +1336,7 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkFiles.WorkFilesFolder", "WorkFilesFolder")
                         .WithMany("WorkFiles")
-                        .HasForeignKey("WorkFilesFolderID1")
+                        .HasForeignKey("WorkFilesFolderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1398,7 +1347,7 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("Folders")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1409,7 +1358,7 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("Albums")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1420,7 +1369,7 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkFiles.WorkGroupAlbum", "Album")
                         .WithMany("WorkPhotos")
-                        .HasForeignKey("AlbumID1")
+                        .HasForeignKey("AlbumID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1431,13 +1380,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("WorkLists")
-                        .HasForeignKey("WorkGroupID1")
+                        .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkLists.WorkList", "WorkList")
                         .WithMany("WorkGroups")
-                        .HasForeignKey("WorkListID1")
+                        .HasForeignKey("WorkListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1450,13 +1399,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkLists.WorkList", "WorkList")
                         .WithMany("ExcludedUsers")
-                        .HasForeignKey("WorkListID1")
+                        .HasForeignKey("WorkListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1469,13 +1418,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "ComplaterUser")
                         .WithMany()
-                        .HasForeignKey("ComplaterUserID1")
+                        .HasForeignKey("ComplaterUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkLists.WorkList", "WorkList")
                         .WithMany("Items")
-                        .HasForeignKey("WorkListID1")
+                        .HasForeignKey("WorkListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1488,13 +1437,13 @@ namespace NoteWith.Persistence.Migrations
                 {
                     b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserID1")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NoteWith.Domain.EntitiyModels.WorkLists.WorkList", "WorkList")
                         .WithMany("WorkListNotifiedMes")
-                        .HasForeignKey("WorkListID1")
+                        .HasForeignKey("WorkListID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1525,6 +1474,8 @@ namespace NoteWith.Persistence.Migrations
                     b.Navigation("NoteGroups");
 
                     b.Navigation("Notices");
+
+                    b.Navigation("WorkGroupAccesKeys");
 
                     b.Navigation("WorkGroupUsers");
 

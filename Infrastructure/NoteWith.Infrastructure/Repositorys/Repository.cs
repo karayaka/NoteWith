@@ -14,7 +14,7 @@ namespace NoteWith.Infrastructure.Repositorys
     {
         private readonly NoteDataContext context;
         private readonly SessionModel user;//sesion model yaz ve moelle çalış
-        
+        //protected readonly int test = 1; unit of worh üzerinden gelen modeller burda test edilmeli tk injection ile olabilirmi?
         public Repository(NoteDataContext _context, SessionModel _user)
 		{
             context = _context;

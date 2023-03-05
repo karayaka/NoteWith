@@ -118,17 +118,17 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (user == null)
                     throw new CusEx("Hatalı Veya Süresi Geçmiş Kod");
                 user.IsEmailConfirmed = true;
+                if (string.IsNullOrEmpty(model.NewPassword))
+                    throw new CusEx("Şifre Alanı Zorunlu Alan");
                 user.Password = model.NewPassword;
                 context.Update(user);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new CusEx();
+                throw ex;
             }
         }
-
-        
 
         public async Task SendResetPasswordEmail(string email)
         {
@@ -169,6 +169,7 @@ namespace NoteWith.Infrastructure.Repositorys
                     Name = model.Name,
                     Surname = model.Surname,
                     ID = model.ID,
+                    IsConfirmeEmail = model.IsEmailConfirmed,
                     Token = tokenService.JWTTokenGenerate(sesionModel, DateTime.Now.AddDays(14)),
                     ProfilImage = model.ProfileImage ?? "",
                 };

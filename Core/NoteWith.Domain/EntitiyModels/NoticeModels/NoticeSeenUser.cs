@@ -9,10 +9,10 @@ namespace NoteWith.Domain.EntitiyModels.NoticeModels
 		public NoticeSeenUser()
 		{
 		}
-		public int NoticeID { get; set; }
+		public Guid NoticeID { get; set; }
         public Notice Notice { get; set; }
 
-		public int UserID { get; set; }
+		public Guid UserID { get; set; }
         public UserModel User { get; set; }
     }
 }

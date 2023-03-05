@@ -9,10 +9,10 @@ namespace NoteWith.Domain.EntitiyModels.MessageModels
 		public PersonelMessageModel()
 		{
 		}
-		public int SenderID { get; set; }
+		public Guid SenderID { get; set; }
         public UserModel Sender { get; set; }
 
-		public int ReceiverID { get; set; }
+		public Guid ReceiverID { get; set; }
         public UserModel Receiver { get; set; }
 
 		public string Message { get; set; }

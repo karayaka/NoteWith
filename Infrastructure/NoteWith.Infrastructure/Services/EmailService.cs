@@ -44,7 +44,7 @@ namespace NoteWith.Infrastructure.Services
 
                 SmtpClient smtp = new();
                 smtp.Credentials = new NetworkCredential(config["Mail:UserName"], config["Mail:Password"]);
-                smtp.Port = 25;
+                smtp.Port = 25;//sll geldiğinde değişebilir!
                 smtp.EnableSsl = false;
                 smtp.Host = config["Mail:Host"];
                 

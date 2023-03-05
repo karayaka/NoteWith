@@ -11,10 +11,10 @@ namespace NoteWith.Domain.EntitiyModels.EventModels
 		{
 		}
 
-        public int EventID { get; set; }
+        public Guid EventID { get; set; }
         public WorkEvent Event { get; set; }
 
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public UserModel User { get; set; }
 
         public string? Desc { get; set; }

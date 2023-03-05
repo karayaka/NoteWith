@@ -5,6 +5,7 @@ using NoteWith.Domain.EntitiyModels.GroupModels;
 using NoteWith.Domain.EntitiyModels.MessageModels;
 using NoteWith.Domain.EntitiyModels.NoteModels;
 using NoteWith.Domain.EntitiyModels.NoticeModels;
+using NoteWith.Domain.EntitiyModels.NotifiedModels;
 using NoteWith.Domain.EntitiyModels.UserModels;
 using NoteWith.Domain.EntitiyModels.WorkFiles;
 using NoteWith.Domain.EntitiyModels.WorkLists;
@@ -13,6 +14,7 @@ namespace NoteWith.Persistence.NoteDataContexts
 {
 	public class NoteDataContext:DbContext
 	{
+        //veri tabanı yeniden oluşturulacak!
 		public NoteDataContext(DbContextOptions options):base(options)
 		{
 		}
@@ -30,6 +32,8 @@ namespace NoteWith.Persistence.NoteDataContexts
         public DbSet<WorkGroup> WorkGroups { get; set; }
 
         public DbSet<WorkGroupUsers> WorkGroupUsers { get; set; }
+
+        public DbSet<WorkGroupAccesKey> WorkGroupAccesKeys { get; set; }
         //message models
         public DbSet<PersonelMessageModel> PersonelMessageModels { get; set; }
 
@@ -66,6 +70,8 @@ namespace NoteWith.Persistence.NoteDataContexts
         public DbSet<WorkListItem> WorkListItems { get; set; }
 
         public DbSet<WorkListNotifiedMe> WorkListNotifiedMes { get; set; }
+        //notifire models
+        public DbSet<NotificationModel> Notifications { get; set; }
 
     }
 }

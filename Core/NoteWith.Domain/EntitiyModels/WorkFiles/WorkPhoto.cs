@@ -8,7 +8,7 @@ namespace NoteWith.Domain.EntitiyModels.WorkFiles
 		public WorkPhoto()
 		{
 		}
-		public int AlbumID { get; set; }
+		public Guid AlbumID { get; set; }
         public WorkGroupAlbum Album { get; set; }
 
 		public string Name { get; set; }
