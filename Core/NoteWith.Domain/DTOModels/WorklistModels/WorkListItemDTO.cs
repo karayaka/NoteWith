@@ -19,8 +19,6 @@ namespace NoteWith.Domain.DTOModels.WorklistModels
         public string? Color { get; set; }
 
         public string ComplatedUser { get; set; }
-
-        public List<Guid> SharedGoups { get; set; }
     }
 }
 

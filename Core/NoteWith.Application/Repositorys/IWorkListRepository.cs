@@ -1,5 +1,6 @@
 ﻿using System;
 using NoteWith.Domain.DTOModels.WorklistModels;
+using NoteWith.Domain.EntitiyModels.WorkLists;
 
 namespace NoteWith.Application.Repositorys
 {
@@ -54,12 +55,36 @@ namespace NoteWith.Application.Repositorys
 		/// <param name="noteID"></param>
 		/// <returns></returns>
         Task TogleNotifiedMe(Guid noteID);
+        /// <summary>
+        /// Çalışma Listelerni getiren kod
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        Task<IQueryable<WorkListDTO>> GetWorkLists(string q, List<Guid> groupID);
+        /// <summary>
+        /// Gruplara Ait Listeleri getiren kod
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        Task<IQueryable<WorkListDTO>> GetGroupsWorkLists(string q, List<Guid> groupID);
 		/// <summary>
-		/// Çalışma Listelerni getiren kod
+		/// Kullanıcıya ait listeler getiren kod
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-		IQueryable<WorkListDTO> GetWorkLists(string q);
+        IQueryable<WorkListDTO> GetUserWorkLists(string q);
+        /// <summary>
+        /// liste elemenı tamamalandı işaretleyen kod
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
+        Task TogleItemComplated(Guid itemID);
+        /// <summary>
+        /// çalışma listelerini dönüştüren kod
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        IQueryable<WorkListDTO> ConvertWorkListGroups(IQueryable<WorkList> models);
     }
 }
 

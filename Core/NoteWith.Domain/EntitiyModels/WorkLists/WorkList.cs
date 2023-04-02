@@ -1,6 +1,5 @@
 ﻿using System;
 using NoteWith.Domain.EntitiyModels.BaseModels;
-using NoteWith.Domain.EntitiyModels.Labels;
 
 namespace NoteWith.Domain.EntitiyModels.WorkLists
 {
@@ -27,7 +26,6 @@ namespace NoteWith.Domain.EntitiyModels.WorkLists
 
         public ICollection<WorkListNotifiedMe> WorkListNotifiedMes { get; set; }
 
-        public ICollection<WorkLabel> Labels { get; set; }
 
     }
 }

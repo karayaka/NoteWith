@@ -3,9 +3,9 @@ using NoteWith.Domain.DTOModels.GroupModels;
 
 namespace NoteWith.Domain.DTOModels.NoteModels
 {
-	public class NoteListDTO
+	public class WorEventDTO
 	{
-		public NoteListDTO()
+		public WorEventDTO()
 		{
 		}
         public Guid ID { get; set; }

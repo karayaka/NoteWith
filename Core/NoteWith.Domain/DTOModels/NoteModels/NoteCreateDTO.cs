@@ -15,6 +15,7 @@ namespace NoteWith.Domain.DTOModels.NoteModels
         public string? Color { get; set; }
 
         public List<Guid> SharedGoups { get; set; }
+
     }
 }
 

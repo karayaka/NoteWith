@@ -24,10 +24,10 @@
     <None Remove="DTOModels\CustomExceptionModels\" />
     <None Remove="DTOModels\GroupModels\" />
     <None Remove="DTOModels\NoteModels\" />
-    <None Remove="EntitiyModels\Labels\" />
     <None Remove="DTOModels\WorklistModels\" />
     <None Remove="EntitiyModels\NotifiedModels\" />
     <None Remove="DTOModels\NotifiedModels\" />
+    <None Remove="DTOModels\EventModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntitiyModels\" />
@@ -47,9 +47,9 @@
     <Folder Include="DTOModels\CustomExceptionModels\" />
     <Folder Include="DTOModels\GroupModels\" />
     <Folder Include="DTOModels\NoteModels\" />
-    <Folder Include="EntitiyModels\Labels\" />
     <Folder Include="DTOModels\WorklistModels\" />
     <Folder Include="EntitiyModels\NotifiedModels\" />
     <Folder Include="DTOModels\NotifiedModels\" />
+    <Folder Include="DTOModels\EventModels\" />
   </ItemGroup>
 </Project>

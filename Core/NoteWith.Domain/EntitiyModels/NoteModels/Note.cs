@@ -1,6 +1,5 @@
 ﻿using System;
 using NoteWith.Domain.EntitiyModels.BaseModels;
-using NoteWith.Domain.EntitiyModels.Labels;
 
 namespace NoteWith.Domain.EntitiyModels.NoteModels
 {
@@ -22,8 +21,6 @@ namespace NoteWith.Domain.EntitiyModels.NoteModels
 		public ICollection<NoteExcludedUser> ExcludedUsers { get; set; }
 
 		public ICollection<NoteGroup> NoteGroups { get; set; }
-		//labeller eklecek ve veri tabanı güncellemeleri yapılacak labeller nasıl yönetilecek düşün!!
-		public ICollection<WorkLabel> Labels { get; set; }
 
 		public ICollection<NoteNotifiedMe> Notifieds { get; set; }//not değiştiğinde haberdar edilecek kullanılaak
     }

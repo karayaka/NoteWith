@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NoteWith.Application.Repositorys;
 using NoteWith.Domain.DTOModels.SecurityModels;
 using NoteWith.Domain.DTOModels.WorklistModels;
+using NoteWith.Domain.EntitiyModels.NoteModels;
 using NoteWith.Domain.EntitiyModels.WorkLists;
 using NoteWith.Persistence.NoteDataContexts;
 
@@ -22,9 +25,19 @@ namespace NoteWith.Infrastructure.Repositorys
             uow = _uow;
         }
 
-        public Task AddItemsToList(WorkListItemDTO Items)
+        public async Task AddItemsToList(WorkListItemDTO Items)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var noteItem = mapper.Map<WorkListItem>(Items);
+
+                await Add(noteItem);
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task AddWorkList(CreateWorkListDTO model)
@@ -34,8 +47,16 @@ namespace NoteWith.Infrastructure.Repositorys
                 var workList = mapper.Map<WorkList>(model);
 
                 await Add(workList);
-                //gruplar ile paylaşılıyor
+                //liste itemleri ekleniyor!
+                foreach (var item in model.Items)
+                {
+                    var workItem = mapper.Map<WorkListItem>(item);
+                    workItem.WorkListID = Guid.Empty;
+                    workItem.WorkList = workList;
 
+                    await Add(workItem);
+                }
+                //gruplar ile paylaşılıyor
                 foreach (var group in model.SharedGroups)
                 {
                     var listGroup = new ListWorkGroup()
@@ -62,39 +83,230 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public Task DeleteWorkList(Guid ID)
+        public async Task DeleteWorkList(Guid ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var items = GetNonDeletedAndActive<WorkListItem>(t => t.WorkListID == ID);
+                await DeleteRange(items);
+                await Delete<WorkList>(ID);
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task DeleteWorkListıtem(Guid ItemID)
+        public async Task DeleteWorkListıtem(Guid ItemID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await Delete<WorkListItem>(ItemID);
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public IQueryable<WorkListDTO> GetWorkLists(string q)
+        public async Task<IQueryable<WorkListDTO>> GetWorkLists(string q, List<Guid> groupID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //yetkii olduğu gruplar
+                var authGroups = await uow.GroupRepository.GetUserAuthWorkGroup();
+
+                var noteIDs = await GetNonDeletedAndActive<WorkList>(t => t.CreadedBy == user.ID).Select(s => s.ID).ToListAsync();
+
+                var groupNoteIDs = new List<Guid>();
+
+                if (groupID.Count <= 0)
+                    groupNoteIDs = await GetNonDeletedAndActive<ListWorkGroup>(t => authGroups.Contains(t.WorkGroupID)).Select(s => s.WorkListID).ToListAsync();
+                else
+                    groupNoteIDs = await GetNonDeletedAndActive<ListWorkGroup>(t => groupID.Contains(t.WorkGroupID)).Select(s => s.WorkListID).ToListAsync();
+
+                foreach (var item in groupNoteIDs)
+                {
+                    if (!noteIDs.Contains(item))
+                        noteIDs.Add(item);
+                }
+
+                var workLists = GetNonDeletedAndActive<WorkList>(t => noteIDs.Contains(t.ID));
+                //başlıktan arama
+                if (!string.IsNullOrEmpty(q))
+                    workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+                return ConvertWorkListGroups(workLists);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IQueryable<WorkListDTO>> GetGroupsWorkLists(string q, List<Guid> groupID)
+        {
+            try
+            {
+                var authGroups = await uow.GroupRepository.GetUserAuthWorkGroup();
+                var groupNoteIDs = new List<Guid>();
+
+                if (groupID.Count <= 0)
+                    groupNoteIDs = await GetNonDeletedAndActive<ListWorkGroup>(t => authGroups.Contains(t.WorkGroupID)).Select(s => s.WorkListID).ToListAsync();
+                else
+                    groupNoteIDs = await GetNonDeletedAndActive<ListWorkGroup>(t => groupID.Contains(t.WorkGroupID)).Select(s => s.WorkListID).ToListAsync();
+
+
+                var workLists = GetNonDeletedAndActive<WorkList>(t => groupNoteIDs.Contains(t.ID));
+                //başlıktan arama
+                if (!string.IsNullOrEmpty(q))
+                    workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+
+                return ConvertWorkListGroups(workLists);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task ShareGroup(Guid listID, List<Guid> groups)
+        public IQueryable<WorkListDTO> GetUserWorkLists(string q)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var workLists = GetNonDeletedAndActive<WorkList>(t => t.CreadedBy == user.ID);
+                if (!string.IsNullOrEmpty(q))
+                    workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+                return ConvertWorkListGroups(workLists);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task TogleItemComplated(Guid itemID)
+        {
+            try
+            {
+                var item = await GetByID<WorkListItem>(itemID);
+                item.IsCoplated = !item.IsCoplated;
+                await Update(item);
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task TogleNotifiedMe(Guid noteID)
+        public async Task ShareGroup(Guid listID, List<Guid> groups)
         {
-            throw new NotImplementedException();
+            try
+            {
+                foreach (var item in groups)
+                {
+                    if (AnyNonDeletedAndActive<ListWorkGroup>(t => t.WorkGroupID == item && t.WorkListID == listID))
+                        continue;
+                    await Add<ListWorkGroup>(new()
+                    {
+                        WorkListID = listID,
+                        WorkGroupID = item
+                    });
+                }
+                var removetShareing = GetNonDeletedAndActive<NoteGroup>(t => !groups.Contains(t.WorkGroupID));//bu kod test edilecek!!
+                RemoveRange(removetShareing);//çıkartılan grouplr dbden kaldırıloyor
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task UpdateWorkList(CreateWorkListDTO model)
+        public async Task TogleNotifiedMe(Guid noteID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var notiferd = await FindNonDeleted<NoteNotifiedMe>(t => t.NoteID == noteID && t.UserID == user.ID);
+                if (notiferd != null)
+                    await Delete(notiferd);
+                else
+                {
+                    await Add<NoteNotifiedMe>(new()
+                    {
+                        UserID = user.ID,
+                        NoteID = noteID,
+                    });
+                }
+                await uow.SaveChange();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task UpdateWorkListItem(WorkListItemDTO item)
+        public async Task UpdateWorkList(CreateWorkListDTO model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var work = await GetByID<WorkList>(model.ID);
+                var list = mapper.Map<CreateWorkListDTO, WorkList>(model,work);
+                await Update(list);
+                await uow.SaveChange();
+                //beni haberdar et bölümü eklenecek
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task UpdateWorkListItem(WorkListItemDTO item)
+        {
+            try
+            {
+                var listItem = await GetByID<WorkListItem>(item.ID);
+                var workItem = mapper.Map<WorkListItemDTO, WorkListItem>(item, listItem);
+                await Update(workItem);
+                await uow.SaveChange();
+                //item değişti haberdar edilecek
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        
+
+        public IQueryable<WorkListDTO> ConvertWorkListGroups(IQueryable<WorkList> models)
+        {
+            try
+            {
+                return models.Select(s => new WorkListDTO()
+                {
+                    ID = s.ID,
+                    Color = s.Color ?? "",
+                    Desc = s.Desc ?? "",
+                    Title = s.Title,
+                    CanEdit = (s.CreadedBy == user.ID) || (s.GroupEditable),
+                    Items = s.Items.Select(it => new WorkListItemDTO()
+                    {
+                        Color = it.Color,
+                        ComplatedUser = it.ComplaterUser.Name + " " + it.ComplaterUser.Surname,//bu test edileceks
+                        Content = it.Content,
+                        IsCoplated = it.IsCoplated,
+                        Title = it.Title,
+                        WorkListID = s.ID,
+                        ID = it.ID,
+                    }).ToList(),
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

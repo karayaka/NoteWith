@@ -57,11 +57,11 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<NoteListDTO> ConverNoteModels(IQueryable<Note> notes)
+        public IQueryable<WorEventDTO> ConverNoteModels(IQueryable<Note> notes)
         {
             try
             {
-                    return notes.Select(s => new NoteListDTO()
+                    return notes.Select(s => new WorEventDTO()
                     {
                         ID = s.ID,
                         CanEdit = (s.CreadedBy==user.ID)||(s.GroupEditable),//editlye bilmesi için kedi notu olmalı veya grup edite açık olmalı!!
@@ -112,8 +112,8 @@ namespace NoteWith.Infrastructure.Repositorys
                 throw ex;
             }
         }
-
-        public async Task<IQueryable<NoteListDTO>> GetAllNotes(string q,List<Guid> labelID)
+        //burdaki algoritmaya bakılacak
+        public async Task<IQueryable<WorEventDTO>> GetAllNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -123,7 +123,12 @@ namespace NoteWith.Infrastructure.Repositorys
 
                 var noteIDs = await GetNonDeletedAndActive<Note>(t => t.CreadedBy == user.ID).Select(s => s.ID).ToListAsync();
                 //Kullanıcının Bağlı Oluğu Grup İle Paylaşılan Notlar! kullanıcı notları hariç!!
-                var groupNoteIDs = await GetNonDeletedAndActive<NoteGroup>(t => authGroups.Contains(t.WorkGroupID)).Select(s => s.NoteID).ToListAsync();
+                var groupNoteIDs = new List<Guid>();
+
+                if (groupID.Count<=0)
+                    groupNoteIDs = await GetNonDeletedAndActive<NoteGroup>(t => authGroups.Contains(t.WorkGroupID)).Select(s => s.NoteID).ToListAsync();
+                else
+                    groupNoteIDs = await GetNonDeletedAndActive<NoteGroup>(t => groupID.Contains(t.WorkGroupID)).Select(s => s.NoteID).ToListAsync();
 
                 foreach (var item in groupNoteIDs)
                 {
@@ -135,9 +140,6 @@ namespace NoteWith.Infrastructure.Repositorys
                 //başlıktan arama
                 if (!string.IsNullOrEmpty(q))
                     notes = notes.Where(t => t.Title.ToLower().Contains(q.ToLower()));
-                //label seçerek arama
-                if (labelID.Count > 0)
-                    notes = notes.Where(t => t.Labels.Any(t => labelID.Contains(t.ID)));
 
                 return ConverNoteModels(notes);
 
@@ -150,7 +152,7 @@ namespace NoteWith.Infrastructure.Repositorys
         }
         //excludet yapısını ele görmek istmiyorsa grptan ayrılsın! uygulamada benim notlarım tüm notlar diye ayrılabisin
         //etikete göre filitreleme yapılabvildsin!!
-        public async Task<IQueryable<NoteListDTO>> GetGroupsNotes(string q, List<Guid> groupID)
+        public async Task<IQueryable<WorEventDTO>> GetGroupsNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -176,15 +178,13 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<NoteListDTO> GetUserNotes(string q, List<Guid> labelID)
+        public IQueryable<WorEventDTO> GetUserNotes(string q)
         {
             try
             {
                 var notes = GetNonDeletedAndActive<Note>(t => t.CreadedBy == user.ID);
                 if(!string.IsNullOrEmpty(q))
                     notes= notes.Where(t => t.Title.ToLower().Contains(q.ToLower()));
-                if(labelID.Count>0)
-                    notes = notes.Where(t => t.Labels.Any(t => labelID.Contains(t.ID)));
 
                 return ConverNoteModels(notes);
             }

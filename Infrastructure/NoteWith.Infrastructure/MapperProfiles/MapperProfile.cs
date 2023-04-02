@@ -1,10 +1,12 @@
 ﻿using System;
 using AutoMapper;
+using NoteWith.Domain.DTOModels.EventModels;
 using NoteWith.Domain.DTOModels.GroupModels;
 using NoteWith.Domain.DTOModels.NoteModels;
 using NoteWith.Domain.DTOModels.NotifiedModels;
 using NoteWith.Domain.DTOModels.SecurityModels;
 using NoteWith.Domain.DTOModels.WorklistModels;
+using NoteWith.Domain.EntitiyModels.EventModels;
 using NoteWith.Domain.EntitiyModels.GroupModels;
 using NoteWith.Domain.EntitiyModels.NoteModels;
 using NoteWith.Domain.EntitiyModels.NotifiedModels;
@@ -28,9 +30,10 @@ namespace NoteWith.Infrastructure.MapperProfiles
             //NotifiedModels
             CreateMap<NotificationModel, NotificationDTO>().ReverseMap();
             //work list models
-            CreateMap<WorkListItemDTO, WorkList>().ReverseMap();
-
-
+            CreateMap<WorkListDTO, WorkList>().ReverseMap();
+            CreateMap<WorkListItemDTO, WorkListItem>().ReverseMap();
+            //even models
+            CreateMap<WorkEvent, WorkEventDTO>().ReverseMap();
         }
     }
 }

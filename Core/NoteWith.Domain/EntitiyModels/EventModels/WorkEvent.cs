@@ -1,6 +1,5 @@
 ﻿using System;
 using NoteWith.Domain.EntitiyModels.BaseModels;
-using NoteWith.Domain.EntitiyModels.Labels;
 
 namespace NoteWith.Domain.EntitiyModels.EventModels
 {
@@ -15,13 +14,13 @@ namespace NoteWith.Domain.EntitiyModels.EventModels
 
 		public DateTime Date { get; set; }
 
+		public bool IsComplated { get; set; }
+
 		public ICollection<WorkEventGroup> Groups { get; set; }
 
         public ICollection<WorkEventNotifiedMe> NotifiedMes { get; set; }
 
         public ICollection<WorkEventExcludedUser> ExcludedUsers { get; set; }
-
-        public ICollection<WorkLabel> Labels { get; set; }
 
     }
 }

@@ -10,19 +10,19 @@ namespace NoteWith.Application.Repositorys
 		/// Oturumdki kullanıcı ve gruplarının notlarını getirenKod
 		/// </summary>
 		/// <returns></returns>
-		Task<IQueryable<NoteListDTO>> GetAllNotes(string q, List<Guid> labelID);
+		Task<IQueryable<WorEventDTO>> GetAllNotes(string q, List<Guid> groupID);
 		/// <summary>
 		/// Oturumdaki Kullanıcnın Notları
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        IQueryable<NoteListDTO> GetUserNotes(string q, List<Guid> labelID);
+        IQueryable<WorEventDTO> GetUserNotes(string q);
 		/// <summary>
 		/// Oturumdaki Kullanıcnın Group Notları
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        Task<IQueryable<NoteListDTO>> GetGroupsNotes(string q, List<Guid> groupID);
+        Task<IQueryable<WorEventDTO>> GetGroupsNotes(string q, List<Guid> groupID);
         /// <summary>
         /// Note ekleme metodu Burda Share Özeliğide Alınacak
         /// </summary>
@@ -64,7 +64,7 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="notes"></param>
 		/// <returns></returns>
-		IQueryable<NoteListDTO> ConverNoteModels(IQueryable<Note> notes);
+		IQueryable<WorEventDTO> ConverNoteModels(IQueryable<Note> notes);
 		/// <summary>
 		/// Gruptak Paylaşımı kaldıranmetod
 		/// </summary>
