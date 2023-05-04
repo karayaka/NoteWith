@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NoteWith.Application.Repositorys;
@@ -55,7 +56,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorkEventDTO> ConverNoteModels(IQueryable<WorkEvent> events)
+        public IQueryable<WorkEventDTO> ConvertWorkEvntModel(IQueryable<WorkEvent> events)
         {
             try
             {
@@ -86,19 +87,81 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorEventDTO> GetGroupWorkEvents(string q, List<Guid> groups)
+        public async Task<IQueryable<WorkEventDTO>> GetGroupWorkEvents(string q, List<Guid> groups)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Guid> unickNoteIDs = new();
+                if (groups.Count <= 0)
+                    groups = await uow.GroupRepository.GetUserAuthWorkGroup();
+                var groupWorkEventIDs = await GetNonDeletedAndActive<WorkEventGroup>(t => groups.Contains(t.WorkGroupID)).Select(s => s.EventID).ToListAsync();
+                foreach (var item in groupWorkEventIDs)
+                {
+                    if (!unickNoteIDs.Contains(item))
+                        unickNoteIDs.Add(item);
+                }
+                var workEvents = GetNonDeletedAndActive<WorkEvent>(t => unickNoteIDs.Contains(t.ID));
+                //başlıktan arama
+                if (!string.IsNullOrEmpty(q))
+                    workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+
+                return ConvertWorkEvntModel(workEvents);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public IQueryable<WorEventDTO> GetUserWorkEvents(string q)
+        public IQueryable<WorkEventDTO> GetUserWorkEvents(string q)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var workEvents = GetNonDeletedAndActive<WorkEvent>(t => t.CreadedBy == user.ID);
+                if (!string.IsNullOrEmpty(q))
+                    workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+
+                return ConvertWorkEvntModel(workEvents);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public IQueryable<WorEventDTO> GetWorkEvents(string q, List<Guid> groups)
+        public async Task<IQueryable<WorkEventDTO>> GetWorkEvents(string q, List<Guid> groups)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var authGroups = await uow.GroupRepository.GetUserAuthWorkGroup();
+                //Kullanıcının Kendi Oluşturduğu notlar!
+
+                var noteIDs = await GetNonDeletedAndActive<WorkEvent>(t => t.CreadedBy == user.ID).Select(s => s.ID).ToListAsync();
+                //Kullanıcının Bağlı Oluğu Grup İle Paylaşılan Notlar! kullanıcı notları hariç!!
+                var groupWorkEvenIDs = new List<Guid>();
+
+                if (groups.Count <= 0)
+                    groupWorkEvenIDs = await GetNonDeletedAndActive<WorkEventGroup>(t => authGroups.Contains(t.WorkGroupID)).Select(s => s.EventID).ToListAsync();
+                else
+                    groupWorkEvenIDs = await GetNonDeletedAndActive<WorkEventGroup>(t => groups.Contains(t.WorkGroupID)).Select(s => s.EventID).ToListAsync();
+
+                foreach (var item in groupWorkEvenIDs)
+                {
+                    if (!noteIDs.Contains(item))
+                        noteIDs.Add(item);
+                }
+
+                var workEvents = GetNonDeletedAndActive<WorkEvent>(t => noteIDs.Contains(t.ID));
+                //başlıktan arama
+                if (!string.IsNullOrEmpty(q))
+                    workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
+
+                return ConvertWorkEvntModel(workEvents);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task ShareGroup(Guid eventID, List<Guid> groupID)
@@ -125,9 +188,12 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public Task TogleComplated(Guid evetID)
+        public async Task TogleComplated(Guid evetID)
         {
-            throw new NotImplementedException();
+            var workEvent = await GetByID<WorkEvent>(evetID);
+            workEvent.IsComplated = !workEvent.IsComplated;
+            await Update<WorkEvent>(workEvent);
+            await uow.SaveChange();
         }
 
         public async Task TogleNotifiedMe(Guid evetID, string notificationID)
@@ -155,9 +221,34 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public Task UpdateEvent(WorkEventDTO model)
+        public async Task UpdateEvent(WorkEventDTO model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                try
+                {
+                    var workEvent = await GetByID<WorkEvent>(model.ID);
+                  
+                    if (workEvent.CreadedBy == user.ID)
+                    {
+                        mapper.Map<WorkEventDTO, WorkEvent>(model, workEvent);
+                        await Update(workEvent);
+                        await uow.SaveChange();
+                        return;
+                    }
+                    else
+                        throw new CusEx("Bu Eventi Güncelleme Yetkiniiz Yok!");//bu hata mesajaları nasıl multi languge yapılabilir!
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

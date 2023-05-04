@@ -57,11 +57,11 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorEventDTO> ConverNoteModels(IQueryable<Note> notes)
+        public IQueryable<NoteListDTO> ConverNoteModels(IQueryable<Note> notes)
         {
             try
             {
-                    return notes.Select(s => new WorEventDTO()
+                    return notes.Select(s => new NoteListDTO()
                     {
                         ID = s.ID,
                         CanEdit = (s.CreadedBy==user.ID)||(s.GroupEditable),//editlye bilmesi için kedi notu olmalı veya grup edite açık olmalı!!
@@ -113,7 +113,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
         //burdaki algoritmaya bakılacak
-        public async Task<IQueryable<WorEventDTO>> GetAllNotes(string q, List<Guid> groupID)
+        public async Task<IQueryable<NoteListDTO>> GetAllNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace NoteWith.Infrastructure.Repositorys
         }
         //excludet yapısını ele görmek istmiyorsa grptan ayrılsın! uygulamada benim notlarım tüm notlar diye ayrılabisin
         //etikete göre filitreleme yapılabvildsin!!
-        public async Task<IQueryable<WorEventDTO>> GetGroupsNotes(string q, List<Guid> groupID)
+        public async Task<IQueryable<NoteListDTO>> GetGroupsNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -178,7 +178,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorEventDTO> GetUserNotes(string q)
+        public IQueryable<NoteListDTO> GetUserNotes(string q)
         {
             try
             {

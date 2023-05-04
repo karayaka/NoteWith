@@ -38,27 +38,27 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="events"></param>
 		/// <returns></returns>
-        IQueryable<WorkEventDTO> ConverNoteModels(IQueryable<WorkEvent> events);
+        IQueryable<WorkEventDTO> ConvertWorkEvntModel(IQueryable<WorkEvent> events);
 		/// <summary>
 		/// tüm eventleri getiren kod
 		/// </summary>
 		/// <param name="q"></param>
 		/// <param name="groups"></param>
 		/// <returns></returns>
-		IQueryable<WorEventDTO> GetWorkEvents(string q, List<Guid> groups);
+		Task<IQueryable<WorkEventDTO>> GetWorkEvents(string q, List<Guid> groups);
 		/// <summary>
 		/// gruplardaki evenleri getiren kod
 		/// </summary>
 		/// <param name="q"></param>
 		/// <param name="groups"></param>
 		/// <returns></returns>
-        IQueryable<WorEventDTO> GetGroupWorkEvents(string q, List<Guid> groups);
+        Task<IQueryable<WorkEventDTO>> GetGroupWorkEvents(string q, List<Guid> groups);
 		/// <summary>
 		/// kullanıcının eventleri
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        IQueryable<WorEventDTO> GetUserWorkEvents(string q);
+        IQueryable<WorkEventDTO> GetUserWorkEvents(string q);
 		/// <summary>
 		/// notification ekliyor
 		/// </summary>
