@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntitiyModels\" />
-    <Folder Include="DTOModels\" />
     <Folder Include="EntitiyModels\BaseModels\" />
     <Folder Include="DTOModels\BaseModel\" />
     <Folder Include="EntitiyModels\UserModels\" />

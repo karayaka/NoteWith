@@ -21,7 +21,6 @@
     <None Remove="Injectors\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositorys\" />
     <Folder Include="Services\" />
     <Folder Include="MapperProfiles\" />
     <Folder Include="InfrastructureRegistirations\" />

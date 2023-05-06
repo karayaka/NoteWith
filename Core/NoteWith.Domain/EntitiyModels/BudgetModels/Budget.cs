@@ -8,7 +8,7 @@ namespace NoteWith.Domain.EntitiyModels.BudgetModels
 {
 	public class Budget:BaseEntity
 	{
-
+		//sadece grup yönetisicisi bütçeyi yönetebilir
 		public Budget()
 		{
 		}
