@@ -21,9 +21,9 @@ namespace NoteWith.Domain.EntitiyModels.UserModels
 
 		public bool IsEmailConfirmed { get; set; }
 
-		public string? ProfileImage { get; set; }
+		public string? ProfileImage { get; set; }//http ile bişlarsa google dosya ismi yazılıysa profil güncelleme
 
-		public string? FireBaseConnectionID { get; set; }
+		public string? FireBaseConnectionID { get; set; }//bu ıd nerden gelcek akılacak
 
         public ICollection<WorkGroupUsers> WorkGroupUsers { get; set; }
     }

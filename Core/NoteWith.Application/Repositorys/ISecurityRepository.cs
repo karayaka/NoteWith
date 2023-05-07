@@ -29,6 +29,12 @@ namespace NoteWith.Application.Repositorys
 		/// <param name="model"></param>
 		/// <returns></returns>
 		Task SendConfirmeEmail(Guid userID);
+		/// <summary>
+		/// googledan alınana bilgi ile kaytı grçekleşecek vasa login olacak
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+        Task<LoginResultModel> GoogleLogin(RegisterDTO model);
 
         Task SendConfirmeEmail(UserModel user);
         /// <summary>
@@ -49,6 +55,7 @@ namespace NoteWith.Application.Repositorys
 		/// <param name="email"></param>
 		/// <returns></returns>
 		bool IsUnicEmail(string email);
+
 		/// <summary>
 		/// JWt ve result bilgileri dönene metod
 		/// </summary>

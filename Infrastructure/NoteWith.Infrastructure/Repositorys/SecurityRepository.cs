@@ -95,13 +95,10 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!IsUnicEmail(model.Email))
                     throw new CusEx("Bu Mail ile Kullanıcı Bulunmaktadır Lütfen Şifrenizi Sıfırlayın");
                 var user = mapper.Map<UserModel>(model);
-                if (model.IsGoogleLogin)
-                    user.IsEmailConfirmed = true;
                 
                 await context.AddAsync(user);
                 await context.SaveChangesAsync();
-                if(!model.IsGoogleLogin)
-                    await SendConfirmeEmail(user);//email doğrulama şartmı olmalı
+                await SendConfirmeEmail(user);//email doğrulama şartmı olmalı
                 return SetLoginResult(user);
             }
             catch (Exception ex)
@@ -173,6 +170,22 @@ namespace NoteWith.Infrastructure.Repositorys
                     Token = tokenService.JWTTokenGenerate(sesionModel, DateTime.Now.AddDays(14)),
                     ProfilImage = model.ProfileImage ?? "",
                 };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<LoginResultModel> GoogleLogin(RegisterDTO model)
+        {
+            try
+            {
+                var user = mapper.Map<UserModel>(model);
+                user.IsEmailConfirmed = true;
+                await context.AddAsync(user);
+                await context.SaveChangesAsync();
+                return SetLoginResult(user);
             }
             catch (Exception ex)
             {

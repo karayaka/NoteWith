@@ -1,4 +1,5 @@
-﻿using NoteWith.Infrastructure.InfrastructureRegistirations;
+﻿using NoteWith.Api.Middlewares;
+using NoteWith.Infrastructure.InfrastructureRegistirations;
 using NoteWith.Persistence.PersistenceRegistirations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthentication();
 

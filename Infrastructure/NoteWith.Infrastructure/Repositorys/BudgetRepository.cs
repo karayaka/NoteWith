@@ -103,21 +103,51 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public Task AddBudgetDetail(BudgetDetailCreateDTO model)
+        public async Task AddBudgetDetail(BudgetDetailCreateDTO model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await Add(new BudgetDetail()
+                {
+                   BudgetID=model.BudgetID,
+                   Desc=model.Desc,
+                   BudgetDetailType=model.BudgetDetailType,
+                   UserID=user.ID,  
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task DeleteBudgetDetail(Guid id)
+        public async Task DeleteBudgetDetail(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await Delete<BudgetDetail>(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         
 
-        public Task UpdateBudgetDetail(BudgetDetailCreateDTO model)
+        public async Task UpdateBudgetDetail(BudgetDetailCreateDTO model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var budgetDetail = await GetByID<BudgetDetail>(model.ID);
+                budgetDetail.Desc = model.Desc;
+                budgetDetail.BudgetDetailType = model.BudgetDetailType;
+                await Update<BudgetDetail>(budgetDetail);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<bool> IsAuth(Budget budget, Guid userId)

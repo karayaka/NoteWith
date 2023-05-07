@@ -41,6 +41,30 @@ namespace NoteWith.Infrastructure.Repositorys
         public INoteRepository NoteRepository => _NoteRepository ??
             (_NoteRepository = new NoteRepository(context, user, mapper, this));
 
+        private IWorkListRepository _workListRepository;
+        public IWorkListRepository WorkListRepository
+        {
+            get => _workListRepository ?? (_workListRepository = new WorkListRepository(context, user, mapper, this));
+        }
+
+        private INoticeRepository _NoticeRepository;
+        public INoticeRepository NoticeRepository
+        {
+            get => _NoticeRepository ?? (_NoticeRepository = new NoticeRepository(context, user, mapper, this));
+        }
+
+        public IWorkEventRepository _WorkEventRepository;
+        public IWorkEventRepository WorkEventRepository
+        {
+            get => _WorkEventRepository ?? (_WorkEventRepository = new WorkEventRepository(context, user, mapper, this));
+        }
+
+        public IBudgetRepository _BudgetRepository;
+        public IBudgetRepository BudgetRepository
+        {
+            get => _BudgetRepository ?? (_BudgetRepository = new BudgetRepository(context, user, mapper, this));
+        }
+
         public Task<int> SaveChange()
         {
             try

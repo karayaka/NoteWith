@@ -14,5 +14,4 @@ namespace NoteWith.Domain.DTOModels.CustomExceptionModels
 		{
 		}
 	}
-}
-
+}  
