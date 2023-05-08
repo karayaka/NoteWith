@@ -113,7 +113,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
         //burdaki algoritmaya bakılacak
-        public async Task<IQueryable<NoteListDTO>> GetAllNotes(string q, List<Guid> groupID)
+        public async Task<IQueryable<Note>> GetAllNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     notes = notes.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConverNoteModels(notes);
+                return notes;
 
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace NoteWith.Infrastructure.Repositorys
         }
         //excludet yapısını ele görmek istmiyorsa grptan ayrılsın! uygulamada benim notlarım tüm notlar diye ayrılabisin
         //etikete göre filitreleme yapılabvildsin!!
-        public async Task<IQueryable<NoteListDTO>> GetGroupsNotes(string q, List<Guid> groupID)
+        public async Task<IQueryable<Note>> GetGroupsNotes(string q, List<Guid> groupID)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     notes = notes.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConverNoteModels(notes);
+                return notes;
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<NoteListDTO> GetUserNotes(string q)
+        public IQueryable<Note> GetUserNotes(string q)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if(!string.IsNullOrEmpty(q))
                     notes= notes.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConverNoteModels(notes);
+                return notes;
             }
             catch (Exception ex)
             {

@@ -27,7 +27,21 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="uid"></param>
 		/// <returns></returns>
-		Task DeteGroup(Guid uid);
+		Task DeleteGroup(Guid uid);
+
+        /// <summary>
+        /// Gurup Paylaşma İşlemi Sırasında keyOluşturma işlemi
+        /// ve bu key paylaşım keyini kaydeten kod bloğu
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        Task<string> GenerateShareGroupKey(Guid Id);
+		/// <summary>
+		/// Oluşturulan key e göre kullanıcı gruba eklenecek
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		Task JoinWorkGroupWithAccesKey(string key);
 		/// <summary>
 		/// grubdan ayrıma kodu
 		/// Gruptaki son kişi ise ayrılan group siliniyor

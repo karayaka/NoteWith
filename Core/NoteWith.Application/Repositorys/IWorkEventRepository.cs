@@ -45,20 +45,20 @@ namespace NoteWith.Application.Repositorys
 		/// <param name="q"></param>
 		/// <param name="groups"></param>
 		/// <returns></returns>
-		Task<IQueryable<WorkEventDTO>> GetWorkEvents(string q, List<Guid> groups);
+		Task<IQueryable<WorkEvent>> GetWorkEvents(string q, List<Guid> groups);
 		/// <summary>
 		/// gruplardaki evenleri getiren kod
 		/// </summary>
 		/// <param name="q"></param>
 		/// <param name="groups"></param>
 		/// <returns></returns>
-        Task<IQueryable<WorkEventDTO>> GetGroupWorkEvents(string q, List<Guid> groups);
+        Task<IQueryable<WorkEvent>> GetGroupWorkEvents(string q, List<Guid> groups);
 		/// <summary>
 		/// kullanıcının eventleri
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        IQueryable<WorkEventDTO> GetUserWorkEvents(string q);
+        IQueryable<WorkEvent> GetUserWorkEvents(string q);
 		/// <summary>
 		/// notification ekliyor
 		/// </summary>

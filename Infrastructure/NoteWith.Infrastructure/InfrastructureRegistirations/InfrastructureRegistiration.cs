@@ -28,6 +28,7 @@ namespace NoteWith.Infrastructure.InfrastructureRegistirations
 		public static void AddRepositorys(this IServiceCollection services)
 		{
 			services.AddTransient<ISecurityRepository, SecurityRepository>();
+			services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
 		public static void AddJWTAuthentication(this IServiceCollection services,string secretToken)

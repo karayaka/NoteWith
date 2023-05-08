@@ -17,7 +17,8 @@ namespace NoteWith.Infrastructure.Repositorys
         private readonly SessionModel user;
         //her özel repoya eklecek!!
         private readonly IMapper mapper;
-        private readonly INotificationServices noti; 
+        private readonly INotificationServices noti;
+        private readonly ITokenGeneratorService tokenGeneratorService;
 
         public UnitOfWork(NoteDataContext _context, IHttpContextAccessor _httpContextAccessor, IMapper _mapper, INotificationServices _noti)
 		{
@@ -35,7 +36,8 @@ namespace NoteWith.Infrastructure.Repositorys
         private IGroupRepository _GroupRepository;
         public IGroupRepository GroupRepository
         {
-            get => _GroupRepository ?? (_GroupRepository = new GroupRepository(context, user, mapper, this));
+            get => _GroupRepository ??
+                (_GroupRepository = new GroupRepository(context, user, mapper, this,tokenGeneratorService));
         }
         private INoteRepository _NoteRepository;
         public INoteRepository NoteRepository => _NoteRepository ??

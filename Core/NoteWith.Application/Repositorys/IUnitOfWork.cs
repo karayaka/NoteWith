@@ -29,11 +29,11 @@ namespace NoteWith.Application.Repositorys
 		/// Bütçe repositorisi
 		/// </summary>
 		public IBudgetRepository BudgetRepository { get; }
-		/// <summary>
-		/// Kaydet
-		/// </summary>
-		/// <returns></returns>
-		Task<int> SaveChange();
+        /// <summary>
+        /// Kaydet
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveChange();
     }
 }
 

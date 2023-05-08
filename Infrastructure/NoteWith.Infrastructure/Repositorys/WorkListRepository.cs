@@ -98,7 +98,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public async Task DeleteWorkListıtem(Guid ItemID)
+        public async Task DeleteWorkListItem(Guid ItemID)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public async Task<IQueryable<WorkListDTO>> GetWorkLists(string q, List<Guid> groupID)
+        public async Task<IQueryable<WorkList>> GetWorkLists(string q, List<Guid> groupID)
         {
             try
             {
@@ -137,14 +137,15 @@ namespace NoteWith.Infrastructure.Repositorys
                 //başlıktan arama
                 if (!string.IsNullOrEmpty(q))
                     workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
-                return ConvertWorkListGroups(workLists);
+                return workLists;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public async Task<IQueryable<WorkListDTO>> GetGroupsWorkLists(string q, List<Guid> groupID)
+
+        public async Task<IQueryable<WorkList>> GetGroupsWorkLists(string q, List<Guid> groupID)
         {
             try
             {
@@ -162,7 +163,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConvertWorkListGroups(workLists);
+                return workLists;
             }
             catch (Exception ex)
             {
@@ -170,7 +171,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorkListDTO> GetUserWorkLists(string q)
+        public IQueryable<WorkList> GetUserWorkLists(string q)
         {
             try
             {
@@ -184,6 +185,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 throw ex;
             }
         }
+
         public async Task TogleItemComplated(Guid itemID)
         {
             try
@@ -223,11 +225,11 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public async Task TogleNotifiedMe(Guid noteID)
+        public async Task TogleNotifiedMe(Guid listID)
         {
             try
             {
-                var notiferd = await FindNonDeleted<NoteNotifiedMe>(t => t.NoteID == noteID && t.UserID == user.ID);
+                var notiferd = await FindNonDeleted<NoteNotifiedMe>(t => t.NoteID == listID && t.UserID == user.ID);
                 if (notiferd != null)
                     await Delete(notiferd);
                 else
@@ -235,7 +237,7 @@ namespace NoteWith.Infrastructure.Repositorys
                     await Add<NoteNotifiedMe>(new()
                     {
                         UserID = user.ID,
-                        NoteID = noteID,
+                        NoteID = listID,
                     });
                 }
                 await uow.SaveChange();
@@ -277,8 +279,6 @@ namespace NoteWith.Infrastructure.Repositorys
                 throw ex;
             }
         }
-
-        
 
         public IQueryable<WorkListDTO> ConvertWorkListGroups(IQueryable<WorkList> models)
         {

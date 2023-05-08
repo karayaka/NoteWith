@@ -87,7 +87,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public async Task<IQueryable<WorkEventDTO>> GetGroupWorkEvents(string q, List<Guid> groups)
+        public async Task<IQueryable<WorkEvent>> GetGroupWorkEvents(string q, List<Guid> groups)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConvertWorkEvntModel(workEvents);
+                return workEvents;
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<WorkEventDTO> GetUserWorkEvents(string q)
+        public IQueryable<WorkEvent> GetUserWorkEvents(string q)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConvertWorkEvntModel(workEvents);
+                return workEvents;
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public async Task<IQueryable<WorkEventDTO>> GetWorkEvents(string q, List<Guid> groups)
+        public async Task<IQueryable<WorkEvent>> GetWorkEvents(string q, List<Guid> groups)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!string.IsNullOrEmpty(q))
                     workEvents = workEvents.Where(t => t.Title.ToLower().Contains(q.ToLower()));
 
-                return ConvertWorkEvntModel(workEvents);
+                return workEvents;
             }
             catch (Exception ex)
             {

@@ -62,8 +62,8 @@ namespace NoteWith.Api.Controllers
             return Ok(new ResultDTO<int>(1));
 
         }
-        [HttpPost("GoogleRegister")]
-        public async Task<IActionResult> GoogleRegister(RegisterDTO model)
+        [HttpPost("GoogleLogin")]
+        public async Task<IActionResult> GoogleLogin(RegisterDTO model)
         {
             await security.GoogleLogin(model);
 

@@ -10,19 +10,19 @@ namespace NoteWith.Application.Repositorys
 		/// Oturumdki kullanıcı ve gruplarının notlarını getirenKod
 		/// </summary>
 		/// <returns></returns>
-		Task<IQueryable<NoteListDTO>> GetAllNotes(string q, List<Guid> groupID);
+		Task<IQueryable<Note>> GetAllNotes(string q, List<Guid> groupID);
 		/// <summary>
 		/// Oturumdaki Kullanıcnın Notları
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        IQueryable<NoteListDTO> GetUserNotes(string q);
+        IQueryable<Note> GetUserNotes(string q);
 		/// <summary>
 		/// Oturumdaki Kullanıcnın Group Notları
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        Task<IQueryable<NoteListDTO>> GetGroupsNotes(string q, List<Guid> groupID);
+        Task<IQueryable<Note>> GetGroupsNotes(string q, List<Guid> groupID);
         /// <summary>
         /// Note ekleme metodu Burda Share Özeliğide Alınacak
         /// </summary>

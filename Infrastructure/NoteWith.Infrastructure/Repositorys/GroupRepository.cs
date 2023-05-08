@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NoteWith.Application.Repositorys;
+using NoteWith.Application.Services;
 using NoteWith.Domain.DTOModels.CustomExceptionModels;
 using NoteWith.Domain.DTOModels.GroupModels;
 using NoteWith.Domain.DTOModels.SecurityModels;
@@ -18,15 +19,22 @@ namespace NoteWith.Infrastructure.Repositorys
         private readonly SessionModel user;
         private readonly IMapper mapper;
         private readonly IUnitOfWork uow;
+        private readonly ITokenGeneratorService tokenGeneratorService;
 
-        public GroupRepository(NoteDataContext _context, SessionModel _user,IMapper _mapper, IUnitOfWork _uow) :base(_context, _user)
+        public GroupRepository(NoteDataContext _context,
+            SessionModel _user,
+            IMapper _mapper,
+            IUnitOfWork _uow,
+            ITokenGeneratorService _tokenGeneratorService
+            ) :base(_context, _user)
 		{
             context = _context;
             user = _user;
             mapper = _mapper;
             uow = _uow;
+            tokenGeneratorService = _tokenGeneratorService;
         }
-        //grup işlemlerinde devam edielecek
+
         public async Task AddGuop(GroupDTO model)
         {
             try
@@ -67,7 +75,7 @@ namespace NoteWith.Infrastructure.Repositorys
            
         }
 
-        public async Task DeteGroup(Guid uid)
+        public async Task DeleteGroup(Guid uid)
         {
             try
             {
@@ -98,6 +106,23 @@ namespace NoteWith.Infrastructure.Repositorys
             {
                 throw ex;
             }
+        }
+
+        public async Task<string> GenerateShareGroupKey(Guid Id)
+        {
+            //expre tekrar test edilmeli
+            var olddKeys= GetNonDeletedAndActive<WorkGroupAccesKey>(t => t.WorkGroupID == Id && t.Expaired < DateTime.Now);
+            await DeleteRange(olddKeys);
+
+            var accesToken = new WorkGroupAccesKey()
+            {
+                Expaired = DateTime.Now.AddDays(2),
+                Key = tokenGeneratorService.GenerateWorkgroupAccessKey(),
+                WorkGroupID = Id,
+            };
+
+            await Add(accesToken);
+            return accesToken.Key;
         }
 
         public async Task<List<Guid>> GetGroupUsers(Guid groupID)
@@ -148,7 +173,8 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                return await (await GetUserGroup()).Where(t => t.IsManager == true).Select(s => s.ID).ToListAsync();
+                return await (await GetUserGroup())
+                    .Where(t => t.IsManager == true).Select(s => s.ID).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -174,6 +200,27 @@ namespace NoteWith.Infrastructure.Repositorys
             {
                 return AnyNonDeletedAndActive<WorkGroupUsers>(t => t.WorkGroupID == workGroupID &&
                 t.UserID == userID && t.IsManager == true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task JoinWorkGroupWithAccesKey(string key)
+        {
+            try
+            {
+                var workOrderAcces = await FindNonDeletedActive<WorkGroupAccesKey>(t => t.Key == key);
+                if (workOrderAcces.Expaired < DateTime.Now)
+                    throw new CusEx("Token SÜresi Dolmuş");
+                await Add(new WorkGroupUsers()
+                {
+                    IsNute=false,
+                    IsManager=false,
+                    UserID=user.ID,
+                    WorkGroupID=workOrderAcces.WorkGroupID,
+                });
             }
             catch (Exception ex)
             {

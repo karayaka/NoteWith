@@ -29,7 +29,7 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="ItemID"></param>
 		/// <returns></returns>
-		Task DeleteWorkListıtem(Guid ItemID);
+		Task DeleteWorkListItem(Guid ItemID);
 		/// <summary>
 		/// lite bilgilerini güncelleyen kod
 		/// </summary>
@@ -54,25 +54,25 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="noteID"></param>
 		/// <returns></returns>
-        Task TogleNotifiedMe(Guid noteID);
+        Task TogleNotifiedMe(Guid listID);
         /// <summary>
         /// Çalışma Listelerni getiren kod
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        Task<IQueryable<WorkListDTO>> GetWorkLists(string q, List<Guid> groupID);
+        Task<IQueryable<WorkList>> GetWorkLists(string q, List<Guid> groupID);
         /// <summary>
         /// Gruplara Ait Listeleri getiren kod
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        Task<IQueryable<WorkListDTO>> GetGroupsWorkLists(string q, List<Guid> groupID);
+        Task<IQueryable<WorkList>> GetGroupsWorkLists(string q, List<Guid> groupID);
 		/// <summary>
 		/// Kullanıcıya ait listeler getiren kod
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-        IQueryable<WorkListDTO> GetUserWorkLists(string q);
+        IQueryable<WorkList> GetUserWorkLists(string q);
         /// <summary>
         /// liste elemenı tamamalandı işaretleyen kod
         /// </summary>

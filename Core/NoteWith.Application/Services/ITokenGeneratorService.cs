@@ -19,6 +19,11 @@ namespace NoteWith.Application.Services
 		/// <param name="DigitCount"></param>
 		/// <returns></returns>
 		string DigitTokenGenerator(int DigitCount = 6);
+		/// <summary>
+		/// çalışma grubuna kişi eklemek için kullanılacak key
+		/// </summary>
+		/// <returns></returns>
+		string GenerateWorkgroupAccessKey();
 	}	
 }
 

@@ -46,7 +46,6 @@
     <Folder Include="EntitiyModels\MessageModels\" />
     <Folder Include="DTOModels\SecurityModels\" />
     <Folder Include="DTOModels\CustomExceptionModels\" />
-    <Folder Include="DTOModels\GroupModels\" />
     <Folder Include="DTOModels\NoteModels\" />
     <Folder Include="DTOModels\WorklistModels\" />
     <Folder Include="EntitiyModels\NotifiedModels\" />

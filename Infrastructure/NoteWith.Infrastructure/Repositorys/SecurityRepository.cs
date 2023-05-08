@@ -181,7 +181,13 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                var user = mapper.Map<UserModel>(model);
+                UserModel? user = await context.Users.FirstOrDefaultAsync(t => t.Email == model.Email);
+                if (user != null)
+                {
+                    user.IsEmailConfirmed = true;
+                    return SetLoginResult(user);
+                }
+                user = mapper.Map<UserModel>(model);
                 user.IsEmailConfirmed = true;
                 await context.AddAsync(user);
                 await context.SaveChangesAsync();

@@ -32,6 +32,18 @@ namespace NoteWith.Infrastructure.Services
             }
         }
 
+        public string GenerateWorkgroupAccessKey()
+        {
+            try
+            {
+                return  Guid.NewGuid().ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string JWTTokenGenerate(SessionModel user, DateTime expiredDate)
         {
             try
