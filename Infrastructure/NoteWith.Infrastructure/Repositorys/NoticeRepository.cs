@@ -1,8 +1,10 @@
 ﻿using System;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NoteWith.Application.Repositorys;
 using NoteWith.Domain.DTOModels.NoticeModels;
 using NoteWith.Domain.DTOModels.SecurityModels;
+using NoteWith.Domain.EntitiyModels.NoteModels;
 using NoteWith.Domain.EntitiyModels.NoticeModels;
 using NoteWith.Persistence.NoteDataContexts;
 
@@ -59,9 +61,21 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-        public IQueryable<NoticeDTO> GetNotices(string q)
+        public async Task<IQueryable<Notice>> GetNotices(string q)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var authGroups = await uow.GroupRepository.GetUserAuthWorkGroup();
+                var noticesIds = await GetNonDeletedAndActive<WorkGroupNotice>(t => authGroups.Contains(t.WorkGroupID)).Select(s=>s.ID).ToListAsync();
+                var notices = GetNonDeletedAndActive<Notice>(t => noticesIds.Contains(t.ID));
+                if (!string.IsNullOrEmpty(q))
+                    notices = notices.Where(t => t.Content.ToLower().Contains(q.ToLower()));
+                return notices;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task UpdateNotice(NoticeDTO model)

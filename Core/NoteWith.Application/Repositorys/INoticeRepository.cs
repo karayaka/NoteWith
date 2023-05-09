@@ -1,5 +1,6 @@
 ﻿using System;
 using NoteWith.Domain.DTOModels.NoticeModels;
+using NoteWith.Domain.EntitiyModels.NoticeModels;
 
 namespace NoteWith.Application.Repositorys
 {
@@ -11,7 +12,7 @@ namespace NoteWith.Application.Repositorys
 		/// </summary>
 		/// <param name="q"></param>
 		/// <returns></returns>
-		IQueryable<NoticeDTO> GetNotices(string q);
+		IQueryable<Notice> GetNotices(string q);
 
 		/// <summary>
 		/// Duyuru ekleyen metod
