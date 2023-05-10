@@ -75,6 +75,8 @@ namespace NoteWith.Api.Controllers
         [HttpGet("TogleNotifiedMe/{ID}")]
         public async Task<IActionResult> TogleNotifiedMe(Guid ID)
         {
+            //notificqtion IDler ileriye yönelik bildirimleri için her telefona özel bildirimlerdir 
+            //bu sebeple tekrar flutter tarafından bakılacak!! event ıd si ile notification kayıt edşlebiliyormu bakılacak
             await uow.WorkEventRepository.TogleNotifiedMe(ID,"");
             return Ok();
         }
@@ -84,6 +86,7 @@ namespace NoteWith.Api.Controllers
             await uow.WorkEventRepository.TogleComplated(ID);
             return Ok();
         }
+
 
     }
 }

@@ -6,13 +6,13 @@ namespace NoteWith.Application.Repositorys
 {
 	public interface INoticeRepository:IRepository
 	{
-		/// <summary>
-		/// kullanıcnın kendi duyularını getiren kod
-		/// Herken kendi duyusunu görür düzenler ve siler
-		/// </summary>
-		/// <param name="q"></param>
-		/// <returns></returns>
-		IQueryable<Notice> GetNotices(string q);
+        /// <summary>
+        /// kullanıcnın kendi duyularını getiren kod
+        /// Herken kendi duyusunu görür düzenler ve siler
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        Task<IQueryable<Notice>> GetNotices(string q);
 
 		/// <summary>
 		/// Duyuru ekleyen metod
@@ -32,6 +32,9 @@ namespace NoteWith.Application.Repositorys
 		/// <param name="noticeID"></param>
 		/// <returns></returns>
 		Task DeleteNotice(Guid noticeID);
-	}
+
+        IQueryable<NoticeDTO> ConvertModel(IQueryable<Notice> notices)
+
+    }
 }
 

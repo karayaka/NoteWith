@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NoteWith.Application.Repositorys;
+using NoteWith.Domain.DTOModels.BaseModel;
+using NoteWith.Domain.DTOModels.EventModels;
 using NoteWith.Domain.DTOModels.NoticeModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,10 +21,11 @@ namespace NoteWith.Api.Controllers
             uow = _uow;
         }
         [HttpGet("GetNotices")]
-        public async Task<IActionResult> GetNotices([FromQuery]String q)
+        public async Task<IActionResult> GetNotices([FromQuery]string q)
         {
-            //buresına bakılacak
-            return Ok();
+            var notices=await uow.NoticeRepository.GetNotices(q);
+            return Ok(new ResultDTO<IQueryable<NoticeDTO>>(
+                _Data: uow.NoticeRepository.ConvertModel(notices)));
         }
         [HttpGet("AddNotice")]
         public async Task<IActionResult>AddNotice(NoticeDTO model)
@@ -36,6 +39,7 @@ namespace NoteWith.Api.Controllers
             await uow.NoticeRepository.DeleteNotice(Id);
             return Ok();
         }
+
     }
 }
 

@@ -92,6 +92,15 @@ namespace NoteWith.Infrastructure.Repositorys
                 throw ex;
             }
         }
+        public IQueryable<NoticeDTO> ConvertModel(IQueryable<Notice> notices)
+        {
+            return notices.Select(s => new NoticeDTO() 
+            {
+                ID = s.ID,
+                Content= s.Content,
+                EndDate= s.EndDate,
+            });
+        }
     }
 }
 

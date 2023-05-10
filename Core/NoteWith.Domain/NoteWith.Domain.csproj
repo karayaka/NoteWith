@@ -32,7 +32,6 @@
     <None Remove="EntitiyModels\BudgetModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EntitiyModels\" />
     <Folder Include="EntitiyModels\BaseModels\" />
     <Folder Include="DTOModels\BaseModel\" />
     <Folder Include="EntitiyModels\UserModels\" />
@@ -52,6 +51,5 @@
     <Folder Include="DTOModels\NotifiedModels\" />
     <Folder Include="DTOModels\EventModels\" />
     <Folder Include="DTOModels\NoticeModels\" />
-    <Folder Include="EntitiyModels\BudgetModels\" />
   </ItemGroup>
 </Project>

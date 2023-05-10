@@ -10,6 +10,7 @@ namespace NoteWith.Application.Repositorys
 {
     public interface IBudgetRepository:IRepository
     {
+        //Task<IQueryable<>>
         /// <summary>
         /// Bütçe ekleme
         /// </summary>

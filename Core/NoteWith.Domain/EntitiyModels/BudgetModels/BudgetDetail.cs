@@ -15,6 +15,8 @@ namespace NoteWith.Domain.EntitiyModels.BudgetModels
 
         public string Desc { get; set; }
 
+		public decimal Sum { get; set; }//hepa hareketindeki parasal tutatr
+
 		public BudgetDetailType BudgetDetailType { get; set; }
 
 		public Guid? UserID { get; set; }

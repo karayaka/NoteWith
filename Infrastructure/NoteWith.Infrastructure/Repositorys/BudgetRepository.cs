@@ -87,7 +87,6 @@ namespace NoteWith.Infrastructure.Repositorys
             }
         }
 
-
         public async Task DeleteBudget(Guid ID)
         {
             try
@@ -132,8 +131,6 @@ namespace NoteWith.Infrastructure.Repositorys
                 throw ex;
             }
         }
-
-        
 
         public async Task UpdateBudgetDetail(BudgetDetailCreateDTO model)
         {
