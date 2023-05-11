@@ -16,6 +16,8 @@ namespace NoteWith.Domain.DTOModels.BudgetModels
 
         public string Desc { get; set; }
 
+        public decimal Sum { get; set; }
+
         public BudgetDetailType BudgetDetailType { get; set; }
 
         public Guid? UserID { get; set; }

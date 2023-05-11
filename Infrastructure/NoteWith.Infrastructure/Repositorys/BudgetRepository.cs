@@ -111,7 +111,8 @@ namespace NoteWith.Infrastructure.Repositorys
                    BudgetID=model.BudgetID,
                    Desc=model.Desc,
                    BudgetDetailType=model.BudgetDetailType,
-                   UserID=user.ID,  
+                   UserID=user.ID,
+                   Sum=model.Sum,
                 });
             }
             catch (Exception ex)
