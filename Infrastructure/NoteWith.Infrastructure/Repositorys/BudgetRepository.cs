@@ -22,6 +22,7 @@ namespace NoteWith.Infrastructure.Repositorys
         private readonly SessionModel user;
         private readonly IMapper mapper;
         private readonly IUnitOfWork uow;
+
         public BudgetRepository(NoteDataContext _context, SessionModel _user, IMapper _mapper, IUnitOfWork _uow)
             : base(_context, _user)
         {
@@ -114,6 +115,9 @@ namespace NoteWith.Infrastructure.Repositorys
                    UserID=user.ID,
                    Sum=model.Sum,
                 });
+                var budegt = await GetByID<Budget>(model.BudgetID);
+                budegt.BudgetTotal =CalculateBudegtTotal(model.BudgetID);
+                await Update(budegt);
             }
             catch (Exception ex)
             {
@@ -125,7 +129,11 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                await Delete<BudgetDetail>(id);
+                var budegtDetail=await GetByID<BudgetDetail>(id);
+                await Delete(budegtDetail);
+                var budegt = await GetByID<Budget>(budegtDetail.BudgetID);
+                budegt.BudgetTotal = CalculateBudegtTotal(budegtDetail.BudgetID);
+                await Update(budegt);
             }
             catch (Exception ex)
             {
@@ -140,7 +148,10 @@ namespace NoteWith.Infrastructure.Repositorys
                 var budgetDetail = await GetByID<BudgetDetail>(model.ID);
                 budgetDetail.Desc = model.Desc;
                 budgetDetail.BudgetDetailType = model.BudgetDetailType;
-                await Update<BudgetDetail>(budgetDetail);
+                await Update(budgetDetail);
+                var budegt = await GetByID<Budget>(model.BudgetID);
+                budegt.BudgetTotal = CalculateBudegtTotal(model.BudgetID);
+                await Update(budegt);
             }
             catch (Exception ex)
             {
@@ -162,6 +173,105 @@ namespace NoteWith.Infrastructure.Repositorys
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        public async Task<IQueryable<BudgetListDTO>> GetAllBudget()
+        {
+            try
+            {
+                var authGroups = await uow.GroupRepository.GetUserAuthWorkGroup();
+                return ConvertBudget(GetNonDeletedAndActive<Budget>(t => authGroups.Contains(t.ID) || t.UserID == user.ID));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IQueryable<BudgetListDTO> GetUserBudget()
+        {
+            try
+            {
+                var budget = GetNonDeletedAndActive<Budget>(t => t.UserID == user.ID);
+                return ConvertBudget(budget);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public IQueryable<BudgetListDTO> ConvertBudget(IQueryable<Budget> models)
+        {
+            try
+            {
+                return models.Select(s => new BudgetListDTO()
+                {
+                    BudgetName=s.BudgetName,
+                    BudgeType=s.BudgeType,
+                    ID=s.ID,
+                    WorkGroupID=s.WorkGroupID,
+                    WorkGroupName=s.WorkGroup!.Name
+                });
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IQueryable<BudgetDetail> GetBudgetDetail(Guid? budgetId,string q)
+        {
+            try
+            {
+                var details = GetNonDeletedAndActive<BudgetDetail>(t => t.BudgetID == budgetId);
+                if (!string.IsNullOrEmpty(q))
+                    details = details.Where(t => t.Desc.ToLower().Contains(q.ToLower()));
+                return details;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IQueryable<BudgetDetailListDTO> ConvertBudgetDetail(IQueryable<BudgetDetail> models)
+        {
+            try
+            {
+                return models.Select(s => new BudgetDetailListDTO()
+                {
+                    BudgetDetailType=s.BudgetDetailType,
+                    BudgetID=s.BudgetID,
+                    Desc=s.Desc,
+                    ID=s.ID,
+                    Sum=s.Sum,
+                    UserID=s.UserID,
+                    UserName=$"{s.User.Name} {s.User.Surname}"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public decimal CalculateBudegtTotal(Guid budegtId)
+        {
+            try
+            {
+                var incrs = GetNonDeletedAndActive<BudgetDetail>(t => t.BudgetDetailType == BudgetDetailType.increase)
+                    .Sum(s => s.Sum);
+                var decrs= GetNonDeletedAndActive<BudgetDetail>(t => t.BudgetDetailType == BudgetDetailType.decrease)
+                    .Sum(s => s.Sum);
+                return incrs - decrs;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

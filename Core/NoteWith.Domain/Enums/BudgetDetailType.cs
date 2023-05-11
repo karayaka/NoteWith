@@ -5,7 +5,6 @@ namespace NoteWith.Domain.Enums
 	{
         increase=1,
         decrease=-1
-
     }
 }
 

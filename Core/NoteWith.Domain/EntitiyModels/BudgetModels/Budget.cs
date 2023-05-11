@@ -19,6 +19,8 @@ namespace NoteWith.Domain.EntitiyModels.BudgetModels
         public Guid? WorkGroupID { get; set; }
         public WorkGroup WorkGroup { get; set; }//ya grup bütçesi olamalı yada kullanıcı bütçesi olmalı yetkilendirme düşün
 
+		public decimal BudgetTotal { get; set; }
+
 		public Guid? UserID { get; set; }
 		public UserModel User { get; set; }
 

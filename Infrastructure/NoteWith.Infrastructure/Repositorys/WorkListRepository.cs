@@ -178,7 +178,7 @@ namespace NoteWith.Infrastructure.Repositorys
                 var workLists = GetNonDeletedAndActive<WorkList>(t => t.CreadedBy == user.ID);
                 if (!string.IsNullOrEmpty(q))
                     workLists = workLists.Where(t => t.Title.ToLower().Contains(q.ToLower()));
-                return ConvertWorkListGroups(workLists);
+                return workLists;
             }
             catch (Exception ex)
             {

@@ -10,7 +10,8 @@ namespace NoteWith.Application.Repositorys
 {
     public interface IBudgetRepository:IRepository
     {
-        //Task<IQueryable<>>
+        Task<IQueryable<BudgetListDTO>> GetAllBudget();
+        IQueryable<BudgetListDTO> GetUserBudget();
         /// <summary>
         /// Bütçe ekleme
         /// </summary>
@@ -29,6 +30,13 @@ namespace NoteWith.Application.Repositorys
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteBudget(Guid id);
+        /// <summary>
+        /// Bütçe etalarını getiran kod
+        /// </summary>
+        /// <param name="budgetId"></param>
+        /// <returns></returns>
+        IQueryable<BudgetDetail> GetBudgetDetail(Guid? budgetId,string q);
+
         /// <summary>
         /// bütçeye kayıt ekleme işlemi düşüş veye yükseliş
         /// </summary>
@@ -54,6 +62,23 @@ namespace NoteWith.Application.Repositorys
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<bool> IsAuth(Budget budget, Guid userId);
-
+        /// <summary>
+        /// convet budget list model
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        IQueryable<BudgetListDTO> ConvertBudget(IQueryable<Budget> models);
+        /// <summary>
+        /// budeget detail convert
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        IQueryable<BudgetDetailListDTO> ConvertBudgetDetail(IQueryable<BudgetDetail> models);
+        /// <summary>
+        /// Budegt toplamı hesaplama
+        /// </summary>
+        /// <param name="budegtId"></param>
+        /// <returns></returns>
+        decimal CalculateBudegtTotal(Guid budegtId);
     }
 }

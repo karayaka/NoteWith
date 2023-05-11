@@ -33,7 +33,7 @@ namespace NoteWith.Application.Repositorys
 		/// <returns></returns>
 		Task DeleteNotice(Guid noticeID);
 
-        IQueryable<NoticeDTO> ConvertModel(IQueryable<Notice> notices)
+		IQueryable<NoticeDTO> ConvertModel(IQueryable<Notice> notices);
 
     }
 }
