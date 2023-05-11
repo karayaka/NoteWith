@@ -27,7 +27,7 @@ namespace NoteWith.Api.Controllers
             Ok(new ResultDTO<IQueryable<BudgetListDTO>>(_Data: uow.BudgetRepository.GetUserBudget()));
 
         [HttpGet("GetBudegtDetail")]
-        public async Task<IActionResult> GetBudegtDetail([FromQuery]Guid Id,string q,int page)
+        public async Task<IActionResult>GetBudegtDetail([FromQuery]Guid Id,string q,int page)
         {
             var budgetDetail = uow.BudgetRepository.GetBudgetDetail(Id, q);
             var pageCount = uow.Repository.GetPageCount(budgetDetail, 25);
@@ -62,7 +62,7 @@ namespace NoteWith.Api.Controllers
             return Ok();
         }
         [HttpPost("AddBudegtDetail")]
-        public async Task<IActionResult> AddBudegtDetail(BudgetDetailCreateDTO model)
+        public async Task<IActionResult>AddBudegtDetail(BudgetDetailCreateDTO model)
         {
             await uow.BudgetRepository.AddBudgetDetail(model);
             await uow.SaveChange();
