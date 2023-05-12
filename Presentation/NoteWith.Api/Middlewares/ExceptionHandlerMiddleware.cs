@@ -27,7 +27,7 @@ namespace NoteWith.Api.Middlewares
             }
             catch (Exception eror)
             {
-                logger.LogInformation(eror.Message);
+                logger.LogInformation(eror.Message);//loglama yapılacka
                 context.Response.ContentType = MediaTypeNames.Application.Json;
                 if (eror is UnAuthEx)
                 {
