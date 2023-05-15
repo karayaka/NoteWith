@@ -20,6 +20,8 @@ builder.Services.AddJWTAuthentication(secretKey);
 builder.Services.AddMapper();
 //servisler eklendi
 builder.Services.AddServices();
+
+builder.Services.AddHttpContextAccessor();
 //repositoryler eklendi
 builder.Services.AddRepositorys();
 

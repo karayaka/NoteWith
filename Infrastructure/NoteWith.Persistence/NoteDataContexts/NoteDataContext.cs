@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using NoteWith.Domain.EntitiyModels.BudgetModels;
 using NoteWith.Domain.EntitiyModels.EventModels;
 using NoteWith.Domain.EntitiyModels.GroupModels;
 using NoteWith.Domain.EntitiyModels.MessageModels;
@@ -72,7 +73,9 @@ namespace NoteWith.Persistence.NoteDataContexts
         public DbSet<WorkListNotifiedMe> WorkListNotifiedMes { get; set; }
         //notifire models
         public DbSet<NotificationModel> Notifications { get; set; }
-
+        //budget
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<BudgetDetail> BudgetDetails { get; set; }
     }
 }
 
