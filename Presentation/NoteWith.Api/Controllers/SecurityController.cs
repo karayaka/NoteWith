@@ -28,7 +28,7 @@ namespace NoteWith.Api.Controllers
 
         }
         [HttpPost("ConfirmeEmil")]
-        public async Task<IActionResult>EmailConfirme(EmailConfirmeDTO model)
+        public async Task<IActionResult>EmailConfirme([FromBody]EmailConfirmeDTO model)
         {
 
             await security.ConfirmeEmil(model);
@@ -38,7 +38,7 @@ namespace NoteWith.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
           
             var resultModel = await security.Login(model);
@@ -54,7 +54,7 @@ namespace NoteWith.Api.Controllers
             return Ok(new ResultDTO<int>(0));
         }
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword(EmailConfirmeDTO model)
+        public async Task<IActionResult> ResetPassword([FromBody] EmailConfirmeDTO model)
         {
            
             await security.ResetPassword(model);
@@ -63,7 +63,7 @@ namespace NoteWith.Api.Controllers
 
         }
         [HttpPost("GoogleLogin")]
-        public async Task<IActionResult> GoogleLogin(RegisterDTO model)
+        public async Task<IActionResult> GoogleLogin([FromBody] RegisterDTO model)
         {
             await security.GoogleLogin(model);
 

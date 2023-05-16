@@ -6,6 +6,7 @@ using NoteWith.Application.Services;
 using NoteWith.Domain.DTOModels.CustomExceptionModels;
 using NoteWith.Domain.DTOModels.SecurityModels;
 using NoteWith.Domain.EntitiyModels.UserModels;
+using NoteWith.Domain.Enums;
 using NoteWith.Persistence.NoteDataContexts;
 
 namespace NoteWith.Infrastructure.Repositorys
@@ -84,7 +85,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
             catch (Exception ex)
             {
-                throw new CusEx();
+                throw ex;
             }
         }
 
@@ -103,7 +104,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
             catch (Exception ex)
             {
-                throw new CusEx();
+                throw ex;
             }
         }
 
@@ -139,7 +140,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
             catch (Exception ex)
             {
-                throw new CusEx();
+                throw ex;
             }
         }
 
@@ -147,7 +148,7 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                return !context.Users.Any(t => t.Email == email);
+                return !context.Users.Any(t => t.Email == email&&t.ObjectStatus==ObjectStatus.NonDeleted);
             }
             catch (Exception ex)
             {

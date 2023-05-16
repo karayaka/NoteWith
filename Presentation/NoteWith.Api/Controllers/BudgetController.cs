@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteWith.Application.Repositorys;
 using NoteWith.Domain.DTOModels.BaseModel;
@@ -10,6 +11,7 @@ namespace NoteWith.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BudgetController : ControllerBase
     {
         private readonly IUnitOfWork uow;
