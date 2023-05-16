@@ -40,7 +40,7 @@ namespace NoteWith.Infrastructure.Repositorys
             try
             {
                 var gruop = mapper.Map<WorkGroup>(model);
-
+                
                 await Add(gruop);
                 var groupFirstUser = new WorkGroupUsers()
                 {
@@ -186,7 +186,7 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                return IsManager(workGroupID, user.ID);
+                return IsManager(user.ID, workGroupID);
             }
             catch (Exception ex)
             {

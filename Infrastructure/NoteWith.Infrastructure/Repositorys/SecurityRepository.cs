@@ -84,7 +84,7 @@ namespace NoteWith.Infrastructure.Repositorys
             }
             catch (Exception ex)
             {
-                throw new CusEx();
+                throw ex;
             }
         }
 

@@ -43,7 +43,7 @@ namespace NoteWith.Infrastructure.Injectors
                 user.FireBaseConnectionID = fireCon.Value;
             var mailConfirmet = httpContextAccessor.HttpContext.User.FindFirst("IsMailConfirmet");
             if (mailConfirmet != null)
-                user.IsConfirmeEmail = Convert.ToBoolean(mailConfirmet);
+                user.IsConfirmeEmail = Convert.ToBoolean(mailConfirmet.Value);
 
             return user;
         }

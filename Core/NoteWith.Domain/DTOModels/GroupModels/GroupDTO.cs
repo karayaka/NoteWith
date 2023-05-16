@@ -12,6 +12,8 @@ namespace NoteWith.Domain.DTOModels.GroupModels
         public string Name { get; set; }
 
         public string? Color { get; set; }
+
+        public string GroupFirebaseConnctionID { get; set; }
     }
 }
 
