@@ -40,7 +40,7 @@ namespace NoteWith.Infrastructure.Repositorys
             try
             {
                 var gruop = mapper.Map<WorkGroup>(model);
-                
+                gruop.ID = Guid.Empty;
                 await Add(gruop);
                 var groupFirstUser = new WorkGroupUsers()
                 {
@@ -62,8 +62,8 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                var groupUser = CountNonDeletedAndActive<WorkGroupUsers>(t => t.WorkGroupID == groupID&&t.UserID==user.ID);
-                if (groupUser <= 0)
+                var groupUser = CountNonDeletedAndActive<WorkGroupUsers>(t => t.WorkGroupID == groupID&&t.UserID!=user.ID);
+                if (groupUser > 0)
                     return false;
                 await Delete<WorkGroup>(groupID);
                 return true;
@@ -82,6 +82,8 @@ namespace NoteWith.Infrastructure.Repositorys
                 if (!IsManager(uid))
                     throw new CusEx("Yöneticisi Oladınız Grubu Silemezsini");
                 var group = await GetByID<WorkGroup>(uid);
+                var groupUsers = GetNonDeletedAndActive<WorkGroupUsers>(t => t.WorkGroupID == uid);
+                await DeleteRange(groupUsers);
                 await Delete(group);
                 await uow.SaveChange();
             }
@@ -110,19 +112,26 @@ namespace NoteWith.Infrastructure.Repositorys
 
         public async Task<string> GenerateShareGroupKey(Guid Id)
         {
-            //expre tekrar test edilmeli
-            var olddKeys= GetNonDeletedAndActive<WorkGroupAccesKey>(t => t.WorkGroupID == Id && t.Expaired < DateTime.Now);
-            await DeleteRange(olddKeys);
-
-            var accesToken = new WorkGroupAccesKey()
+            try
             {
-                Expaired = DateTime.Now.AddDays(2),
-                Key = tokenGeneratorService.GenerateWorkgroupAccessKey(),
-                WorkGroupID = Id,
-            };
+                var olddKeys = GetNonDeletedAndActive<WorkGroupAccesKey>(t => t.WorkGroupID == Id && t.Expaired < DateTime.Now && t.KeyOwnerId == user.ID);
+                await DeleteRange(olddKeys);
+                var accesToken = new WorkGroupAccesKey()
+                {
+                    Expaired = DateTime.Now.AddDays(2),
+                    Key = tokenGeneratorService.GenerateWorkgroupAccessKey(),
+                    WorkGroupID = Id,
+                    KeyOwnerId = user.ID,
+                };
 
-            await Add(accesToken);
-            return accesToken.Key;
+                await Add(accesToken);
+                await uow.SaveChange();
+                return accesToken.Key;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<Guid>> GetGroupUsers(Guid groupID)
@@ -212,8 +221,12 @@ namespace NoteWith.Infrastructure.Repositorys
             try
             {
                 var workOrderAcces = await FindNonDeletedActive<WorkGroupAccesKey>(t => t.Key == key);
+                if (workOrderAcces == null)
+                    throw new CusEx("Geçersiz Kod");
                 if (workOrderAcces.Expaired < DateTime.Now)
-                    throw new CusEx("Token SÜresi Dolmuş");
+                    throw new CusEx("Token Süresi Dolmuş");
+                if (AnyNonDeletedAndActive<WorkGroupUsers>(t => t.UserID == user.ID && t.WorkGroupID == workOrderAcces.WorkGroupID))
+                    throw new CusEx("Zaten Bu Gruba Üyesiniz");
                 await Add(new WorkGroupUsers()
                 {
                     IsNute=false,
@@ -221,6 +234,8 @@ namespace NoteWith.Infrastructure.Repositorys
                     UserID=user.ID,
                     WorkGroupID=workOrderAcces.WorkGroupID,
                 });
+                //u kullanıcı zaten gruptamı
+                await uow.SaveChange();
             }
             catch (Exception ex)
             {
@@ -232,13 +247,11 @@ namespace NoteWith.Infrastructure.Repositorys
         {
             try
             {
-                if (await CheckGroupMemberByLeave(gruopID))
-                    return;
                 await SetNextManager(gruopID);
-                var groupUser = await FindNonDeletedActive<WorkGroupUsers>(t => t.WorkGroupID == gruopID &&
-                t.UserID == user.ID);
+                var groupUser = await FindNonDeletedActive<WorkGroupUsers>(t => t.WorkGroupID == gruopID &&t.UserID == user.ID);
                 
                 await Delete(groupUser);
+                await CheckGroupMemberByLeave(gruopID);
                 await uow.SaveChange();
             }
             catch (Exception ex)

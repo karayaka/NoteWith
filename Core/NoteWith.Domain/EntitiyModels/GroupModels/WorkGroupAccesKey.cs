@@ -1,5 +1,6 @@
 ﻿using System;
 using NoteWith.Domain.EntitiyModels.BaseModels;
+using NoteWith.Domain.EntitiyModels.UserModels;
 
 namespace NoteWith.Domain.EntitiyModels.GroupModels
 {
@@ -14,6 +15,9 @@ namespace NoteWith.Domain.EntitiyModels.GroupModels
 		/// unic key oluşturulup 
 		/// </summary>
 		public string Key { get; set; }
+
+		public Guid KeyOwnerId { get; set; }
+		public UserModel KeyOwner { get; set; }
 
 		public DateTime Expaired { get; set; }
 	}

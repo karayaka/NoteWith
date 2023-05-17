@@ -45,7 +45,7 @@ namespace NoteWith.Api.Controllers
         public async Task<IActionResult> GetShareCode(Guid Id)=>
             Ok(new ResultDTO<string>(_Data: await uow.GroupRepository.GenerateShareGroupKey(Id)));
 
-        [HttpPost("JoinGroup/{key}")]
+        [HttpGet("JoinGroup/{key}")]
         public async Task<IActionResult>JoinGroup(string key)
         {
             await uow.GroupRepository.JoinWorkGroupWithAccesKey(key);
