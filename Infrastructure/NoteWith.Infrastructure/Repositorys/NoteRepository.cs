@@ -8,6 +8,7 @@ using NoteWith.Domain.DTOModels.GroupModels;
 using NoteWith.Domain.DTOModels.NoteModels;
 using NoteWith.Domain.DTOModels.SecurityModels;
 using NoteWith.Domain.EntitiyModels.NoteModels;
+using NoteWith.Domain.Enums;
 using NoteWith.Persistence.NoteDataContexts;
 
 namespace NoteWith.Infrastructure.Repositorys
@@ -33,14 +34,17 @@ namespace NoteWith.Infrastructure.Repositorys
                 var note = mapper.Map<Note>(model);
                 await Add(note);
                 //paylaşılan gruplara eklendi
-                foreach (var groupID in model.SharedGoups)
+                if (model.SharedGoups != null)
                 {
-                    var noteGroup = new NoteGroup()
+                    foreach (var groupID in model.SharedGoups)
                     {
-                        Note = note,
-                        WorkGroupID = groupID
-                    };
-                    await Add(noteGroup);
+                        var noteGroup = new NoteGroup()
+                        {
+                            Note = note,
+                            WorkGroupID = groupID
+                        };
+                        await Add(noteGroup);
+                    }
                 }
                 //notta değişiklik olunca haberdar et beni 
                 var notifire = new NoteNotifiedMe()
@@ -67,9 +71,11 @@ namespace NoteWith.Infrastructure.Repositorys
                         CanEdit = (s.CreadedBy==user.ID)||(s.GroupEditable),//editlye bilmesi için kedi notu olmalı veya grup edite açık olmalı!!
                         Color = s.Color,
                         Content = s.Content,
+                        Title=s.Title,
                         IsOwner = (s.CreadedBy == user.ID),
-                        NotifiedMe=s.Notifieds.Any(t=>t.UserID==user.ID),//eğer bu kullanıcı kendini haber vere ekledi ise notta değişiklik olunca haberdar edileceks 
-                        NoteGroups = s.NoteGroups.Select(ns => new GroupListDTO()
+                        NotifiedMe=s.Notifieds.Any(t=>t.UserID==user.ID&&t.ObjectStatus==ObjectStatus.NonDeleted),//eğer bu kullanıcı kendini haber vere ekledi ise notta değişiklik olunca haberdar edileceks 
+                        NoteGroups = s.NoteGroups.Where(t=>t.ObjectStatus==ObjectStatus.NonDeleted&&t.Status==Status.Active)
+                        .Select(ns => new GroupListDTO()
                         {
                             Color = ns.WorkGroup.Color,
                             ID = ns.WorkGroupID,

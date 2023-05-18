@@ -61,14 +61,14 @@ namespace NoteWith.Api.Controllers
                 _PageCount: pageCount));
         }
         [HttpPost("AddNote")]
-        public async Task<IActionResult> AddNote(NoteCreateDTO model)
+        public async Task<IActionResult> AddNote([FromBody]NoteCreateDTO model)
         {
             await uow.NoteRepository.AddNote(model);
             await uow.SaveChange();
             return Ok();
         }
         [HttpPost("ShareGroup")]
-        public async Task<IActionResult> ShareGroup(ShareGroupDTO share)
+        public async Task<IActionResult> ShareGroup([FromBody]ShareGroupDTO share)
         {
             await uow.NoteRepository.ShareGroup(share.ObjectId, share.GroupIds);
             return Ok();
@@ -81,7 +81,7 @@ namespace NoteWith.Api.Controllers
         }
 
         [HttpPost("LeaveGroup")]
-        public async Task<IActionResult> LeaveGroup(LeaveGroupDTO leave)
+        public async Task<IActionResult> LeaveGroup([FromBody]LeaveGroupDTO leave)
         {
             await uow.NoteRepository.LeaveGroup(leave.GroupId, leave.ObjectId);
             return Ok();
