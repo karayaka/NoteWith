@@ -20,12 +20,13 @@ namespace NoteWith.Infrastructure.Repositorys
         private readonly INotificationServices noti;
         private readonly ITokenGeneratorService tokenGeneratorService;
 
-        public UnitOfWork(NoteDataContext _context, IHttpContextAccessor _httpContextAccessor, IMapper _mapper, INotificationServices _noti)
+        public UnitOfWork(NoteDataContext _context, IHttpContextAccessor _httpContextAccessor, IMapper _mapper, INotificationServices _noti,ITokenGeneratorService _tokenGeneratorService)
 		{
             context = _context;
             mapper = _mapper;
             noti = _noti;
             user = Injector.SessionUser(_httpContextAccessor);
+            tokenGeneratorService = _tokenGeneratorService;
         }
         //base repostory
 		private IRepository _Repository;

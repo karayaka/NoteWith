@@ -26,6 +26,7 @@ namespace NoteWith.Domain.EntitiyModels.UserModels
 		public string? FireBaseConnectionID { get; set; }//bu ıd nerden gelcek akılacak
 
         public ICollection<WorkGroupUsers> WorkGroupUsers { get; set; }
+		public ICollection<WorkGroupAccesKey> WorkGroupAccesKeys { get; set; }
     }
 }
 

@@ -36,7 +36,7 @@ namespace NoteWith.Infrastructure.Services
         {
             try
             {
-                return  Guid.NewGuid().ToString();
+                return Guid.NewGuid().ToString();
             }
             catch (Exception ex)
             {

@@ -528,6 +528,7 @@ namespace NoteWith.Persistence.Migrations
                     WorkGroupID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Key = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    KeyOwnerId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Expaired = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreadedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     UpdatedBy = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
@@ -539,6 +540,12 @@ namespace NoteWith.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkGroupAccesKeys", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_WorkGroupAccesKeys_Users_KeyOwnerId",
+                        column: x => x.KeyOwnerId,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_WorkGroupAccesKeys_WorkGroups_WorkGroupID",
                         column: x => x.WorkGroupID,
@@ -1034,6 +1041,11 @@ namespace NoteWith.Persistence.Migrations
                 name: "IX_WorkFilesFolders_WorkGroupID",
                 table: "WorkFilesFolders",
                 column: "WorkGroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkGroupAccesKeys_KeyOwnerId",
+                table: "WorkGroupAccesKeys",
+                column: "KeyOwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkGroupAccesKeys_WorkGroupID",

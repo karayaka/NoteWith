@@ -21,13 +21,13 @@ namespace NoteWith.Infrastructure.InfrastructureRegistirations
 
 		public static void AddServices(this IServiceCollection services)
 		{
-			services.AddTransient<IEmailService, EmailService>();
-			services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
-            services.AddTransient<INotificationServices, NotificationServices>();
+			services.AddScoped<IEmailService, EmailService>();
+			services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            services.AddScoped<INotificationServices, NotificationServices>();
         }
 		public static void AddRepositorys(this IServiceCollection services)
 		{
-			services.AddTransient<ISecurityRepository, SecurityRepository>();
+			services.AddScoped<ISecurityRepository, SecurityRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

@@ -11,7 +11,7 @@ using NoteWith.Persistence.NoteDataContexts;
 namespace NoteWith.Persistence.Migrations
 {
     [DbContext(typeof(NoteDataContext))]
-    [Migration("20230515184726_init1")]
+    [Migration("20230517191034_init1")]
     partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -344,6 +344,9 @@ namespace NoteWith.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<Guid>("KeyOwnerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<int>("ObjectStatus")
                         .HasColumnType("int");
 
@@ -360,6 +363,8 @@ namespace NoteWith.Persistence.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("KeyOwnerId");
 
                     b.HasIndex("WorkGroupID");
 
@@ -1357,11 +1362,19 @@ namespace NoteWith.Persistence.Migrations
 
             modelBuilder.Entity("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroupAccesKey", b =>
                 {
+                    b.HasOne("NoteWith.Domain.EntitiyModels.UserModels.UserModel", "KeyOwner")
+                        .WithMany("WorkGroupAccesKeys")
+                        .HasForeignKey("KeyOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("NoteWith.Domain.EntitiyModels.GroupModels.WorkGroup", "WorkGroup")
                         .WithMany("WorkGroupAccesKeys")
                         .HasForeignKey("WorkGroupID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("KeyOwner");
 
                     b.Navigation("WorkGroup");
                 });
@@ -1700,6 +1713,8 @@ namespace NoteWith.Persistence.Migrations
 
             modelBuilder.Entity("NoteWith.Domain.EntitiyModels.UserModels.UserModel", b =>
                 {
+                    b.Navigation("WorkGroupAccesKeys");
+
                     b.Navigation("WorkGroupUsers");
                 });
 

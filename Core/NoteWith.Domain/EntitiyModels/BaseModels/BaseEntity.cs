@@ -11,7 +11,10 @@ namespace NoteWith.Domain.EntitiyModels.BaseModels
 			UpdatedBy = Guid.Empty;
 			CreadedDate = DateTime.Now;
 			UpdatedDate = DateTime.Now;
-		}
+			ObjectStatus = ObjectStatus.NonDeleted;
+			Status = Status.Active;
+
+        }
 
 		public Guid ID { get; set; }
 

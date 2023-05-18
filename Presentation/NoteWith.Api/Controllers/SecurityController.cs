@@ -20,7 +20,7 @@ namespace NoteWith.Api.Controllers
         }
         // GET: api/values
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterDTO model)
+        public async Task<IActionResult> Register([FromBody]RegisterDTO model)
         {
             
             var resultModel = await security.Register(model);
@@ -54,7 +54,7 @@ namespace NoteWith.Api.Controllers
             return Ok(new ResultDTO<int>(0));
         }
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody] EmailConfirmeDTO model)
+        public async Task<IActionResult> ResetPassword([FromBody]EmailConfirmeDTO model)
         {
            
             await security.ResetPassword(model);
@@ -63,7 +63,7 @@ namespace NoteWith.Api.Controllers
 
         }
         [HttpPost("GoogleLogin")]
-        public async Task<IActionResult> GoogleLogin([FromBody] RegisterDTO model)
+        public async Task<IActionResult> GoogleLogin([FromBody]RegisterDTO model)
         {
             await security.GoogleLogin(model);
 
